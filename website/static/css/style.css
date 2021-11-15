@@ -6,12 +6,24 @@
     --secondary-hover: #028daf;
     --accent: #BCE900;
     --accent-hover: #8caf00;
+    --light-background: #08104010;
 
 }
 
 .btn-main{
     color: white;
     background-color: var(--primary);
+}
+
+.btn-text-main{
+    color: var(--primary);
+    background-color: var(--light-background);
+    border: 1px solid var(--light-background);
+}
+
+.btn-text-main:hover{
+    color: var(--primary);
+    background-color: #bbc1df;
 }
 
 .btn-main:hover{

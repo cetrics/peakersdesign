@@ -1,0 +1,20 @@
+{% for post in posts %}
+
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="card mt-2">
+
+                <img class="card-img-top" src="{{post.image_url.url}}" style="max-height:200px; object-fit: cover;">
+
+                <div class="card-body">
+
+
+                    <h4>{{post.title}}</h4>
+                    <p class="my-2">{{post.message | truncatewords:15}}</p>
+                    
+                    <a href="{% url 'post_details' post.id %}" class="btn btn-main btn-sm w-100">Read More</a>
+                </div>
+                
+            </div>
+        </div>
+
+{% endfor %}

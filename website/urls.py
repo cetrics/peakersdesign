@@ -38,6 +38,10 @@ staffpatterns = [
 
 urlpatterns = [
     path("", home, name="home"),
+    path("contact", home, name="contact"),
+    path("articles", home, name="articles"),
+    path("portfolio", home, name="portfolio"),
+    path("request/quote", home, name="request.quote"),
     path("staff/", include(staffpatterns))
 ]
 
