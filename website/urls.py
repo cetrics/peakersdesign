@@ -17,10 +17,28 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls.conf import include
 from .views import *
+
+
+staffpatterns = [
+
+    path("dashboard", dashboard, name="dashboard"),
+    path('feedback', showFeedback, name="feedback"),
+    path('categories', showCategories, name="categories"),
+    path('category/form', categoryForm, name="add_category"),
+    path('store/category', storeCategory, name="store_category"),
+    path('delete/category/<id>',deleteCategory, name="delete_category"),
+    path('articles', ArticleList.as_view(), name="articles"),
+    path('create/article', ArticleCreate.as_view(), name="add_article"),
+    path('view/articles/<pk>', ArticleDetails.as_view(), name="view_article"),
+    path('update/articles/<pk>', ArticleUpdate.as_view(), name="update_article"),
+
+]
 
 urlpatterns = [
     path("", home, name="home"),
+    path("staff/", include(staffpatterns))
 ]
 
 if settings.DEBUG:

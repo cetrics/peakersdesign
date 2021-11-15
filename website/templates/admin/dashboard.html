@@ -1,30 +1,41 @@
-{% extends 'blog/admin/layouts/admin-base.html' %}
+{% extends 'admin/layouts/admin-base.html' %}
 
 {% block 'content' %}
 
 <div class="container-fluid">
 
-    <h3 class="text-center mt-3">Dashboard</h3>
+    <h3 class="text-center">Dashboard</h3>
     
     <div class="row justify-content-center mt-3">
 
 
-        <div class="col-lg-4 col-md-4 col-sm-12">
-            <div class="card bg-black mt-1">
-                <div class="card-body text-center text-light">
-                    <p class="text-main"><i class="fa fa-sticky-note fa-2x"></i></p>
-                    <p class="mx-3"> All posts</p>
+        <div class="col-lg-3 col-md-3 col-sm-12">
+            <div class="card  mt-1">
+                <div class="card-body text-center ">
+                    <p class="text-main"><i class="fa fa-clipboard fa-2x"></i></p>
+                    <p class="mx-3"> All articles</p>
                     <p class="mx-3"> {{posts | length}}</p>
 
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-4 col-sm-12">
-            <div class="card bg-black mt-1">
-                <div class="card-body text-center text-light">
-                    <p class="text-main"><i class="fa fa-ravelry fa-2x"></i></p>
-                    <p class="mx-3">All categories</p>
+        <div class="col-lg-3 col-md-3 col-sm-12">
+            <div class="card  mt-1">
+                <div class="card-body text-center ">
+                    <p class="text-main"><i class="fa fa-code-fork fa-2x"></i></p>
+                    <p class="mx-3"> All projects</p>
+                    <p class="mx-3"> {{posts | length}}</p>
+
+                </div>
+            </div>
+        </div>  
+
+        <div class="col-lg-3 col-md-3 col-sm-12">
+            <div class="card mt-1">
+                <div class="card-body text-center">
+                    <p class="text-main"><i class="fa fa-comments fa-2x"></i></p>
+                    <p class="mx-3">All Messages</p>
                     <p class="mx-3">{{categories | length}}</p>
 
 
@@ -32,9 +43,9 @@
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-4 col-sm-12">
-            <div class="card bg-black mt-1">
-                <div class="card-body text-center text-light">
+        <div class="col-lg-3 col-md-3 col-sm-12">
+            <div class="card mt-1">
+                <div class="card-body text-center">
                     <p class="text-main"><i class="fa fa-eye fa-2x"></i></p>
                     <p class="mx-3">Total Views</p>
                     <p class="mx-3">{{posts | length}}</p>
@@ -55,10 +66,10 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <h5 class="ml-3">Recent Posts</h5>
-                        <a href="{% url 'add_post' %}" class="btn btn-sec ml-auto">
+                        <h5 class="ml-3">Recent Articles</h5>
+                        <a href="{% url 'add_article' %}" class="btn btn-sec ml-auto">
                             <i class="fa fa-plus-circle mr-1"></i>
-                            Add Post
+                            Create Article
                         </a>
                     </div>
                 </div>
@@ -86,7 +97,7 @@
                                 <td>{{post.user}}</td>
                                 <td>{{post.created_at}}</td>
                                 <td>
-                                    <a href="{% url 'view_post' post.id %}" class="btn btn-main btn-sm">
+                                    <a href="{% url 'view_article' post.id %}" class="btn btn-main btn-sm">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                 </td>

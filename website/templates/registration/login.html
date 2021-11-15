@@ -1,4 +1,4 @@
-{% extends 'blog/base.html' %}
+{% extends 'layouts/base.html' %}
 
 
 {% load static %}
@@ -43,7 +43,7 @@
     
     
               <form method="post" action="{% url 'login' %}">
-                {% include 'blog/form-layout.html '%}
+                {% include 'layouts/form-layout.html '%}
 
                 <input type="hidden" name="next" value="{{ next }}" />
               </form>

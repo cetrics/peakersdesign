@@ -1,21 +1,32 @@
+:root{
+
+    --primary: #081040;
+    --primary_hover: #020822;
+    --secondary: #00BCE9;
+    --secondary-hover: #028daf;
+    --accent: #BCE900;
+    --accent-hover: #8caf00;
+
+}
+
 .btn-main{
     color: white;
-    background-color: #00a878;
+    background-color: var(--primary);
 }
 
 .btn-main:hover{
     color: white;
-    background-color: #036d4f;
+    background-color: var(--primary_hover);
 }
 
 .btn-sec{
     color: white;
-    background-color: #fe5e41;
+    background-color: var(--secondary);
 }
 
 .btn-sec:hover{
     color: white;
-    background-color: #c93319;
+    background-color: var(--secondary-hover);
 }
 
 .btn-black{
@@ -30,7 +41,7 @@
 
 .bg-main{
 
-    background-color: #00a878;
+    background-color: var(--primary);
 
 }
 
@@ -42,10 +53,10 @@
     color:#f3c178;
 }
 .text-sec{
-    color:#c93319;
+    color:var(--secondary);
 }
 .text-main{
-    color:#00a870;
+    color:var(--primary);
 }
 .bg-black{
     background-color: #0b0500;
