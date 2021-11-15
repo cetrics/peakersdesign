@@ -15,7 +15,10 @@ class Category(models.Model):
 
 class Service(models.Model):
     name = models.CharField(max_length = 50)
+    description = models.TextField(null=True, blank=True)
+    icon = models.ImageField(null=True, blank=True)
     slug = models.SlugField(max_length=200)
+    views = models.IntegerField(default=0,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -68,7 +71,7 @@ class Article(models.Model):
 class Comment(models.Model):
     message = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
-    post = models.ForeignKey(Article, on_delete=models.CASCADE, blank=False, null=False)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, blank=False, null=False)
     likes = models.IntegerField(default=0, blank=True)
     dislikes = models.IntegerField(default=0, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

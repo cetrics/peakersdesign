@@ -1,10 +1,10 @@
-{% extends 'blog/admin/layouts/admin-base.html' %}
+{% extends 'admin/layouts/admin-base.html' %}
 
 {% block 'content' %}
 
 <div class="container">
 
-    <h3 class="mt-5 mb-3">Posts ({{post_list | length}})</h3>
+    <h3 class="mt-5 mb-3">Articles ({{articles | length}})</h3>
 
     <div class="row justify-content-center">
 
@@ -12,15 +12,14 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <h5>Your posts</h5>
-                        <a href="{% url 'add_post' %}" class="btn btn-main ml-auto">
+                        <h6 class="ml-3 my-auto">All Articles</h6>
+                        <a href="{% url 'add_article' %}" class="btn btn-text-main btn-sm ml-auto mr-1">
                             <i class="fa fa-plus-circle mr-1"></i>
-                            Add Post
+                            ADD ARTICLE
                         </a>
                     </div>
                 </div>
                 <div class="card-body">
-
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -62,6 +61,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 

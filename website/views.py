@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Feedback, Category, Article, Comment
+from .models import Feedback, Category, Article, Comment, Service, Seo, Project, ProjectWorker
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.http import JsonResponse
@@ -27,22 +27,22 @@ def showFeedback(request):
     context = {}
     context['feedback_list'] = Feedback.objects.all()
 
-    return render(request, "blog/admin/feedback.html", context)
+    return render(request, "admin/feedback.html", context)
 
 @login_required
 def showCategories(request):
 
     context = {
-        'category_list' : Category.objects.all()
+        'categories' : Category.objects.all()
     }
 
-    return render(request, "blog/admin/categories.html", context)
+    return render(request, "admin/categories.html", context)
 
 @login_required
 def categoryForm(request):
     context = {}
 
-    return render(request, "blog/admin/category_form.html", context)
+    return render(request, "admin/category_form.html", context)
 
 @login_required
 def storeCategory(request):
@@ -61,7 +61,7 @@ def deleteCategory(request, id):
 
     return HttpResponseRedirect('/staff/categories')
 
-
+@method_decorator(login_required, name="dispatch")
 class ArticleList(LoginRequiredMixin, ListView):
     model = Article
     template_name = "admin/articles.html"
@@ -70,27 +70,32 @@ class ArticleList(LoginRequiredMixin, ListView):
 class ArticleCreate(CreateView):
     model = Article
     template_name = "admin/article_form.html"
-    fields = ['title', 'message', 'slug', 'category', 'user', 'keywords', 'image_url']
+    fields = ['image_url', 'title', 'post', 'category', 'user', 'keywords']
     success_url = '/staff/articles'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = 'Article'
+        return context
 
     
 
 @method_decorator(login_required, name="dispatch")
 class ArticleDetails(DetailView):
     model = Article
-    template_name = "blog/admin/article_details.html"
+    template_name = "admin/article_details.html"
     context_object_name = "article"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["comments"] = Comment.objects.filter(post = self.kwargs['pk'])
+        context["comments"] = Comment.objects.filter(article = self.kwargs['pk'])
         return context
 
 @method_decorator(login_required, name="dispatch")
 class ArticleUpdate(UpdateView):
     model = Article
-    template_name = "blog/admin/article_form.html"
-    fields = ['title', 'message', 'slug', 'category', 'user', 'keywords', 'image_url']
+    template_name = "admin/article_form.html"
+    fields = ['image_url', 'title', 'post', 'category', 'user', 'keywords']
     success_url = '/staff/articles'
 
 def getCategoryArticles(request, id):
@@ -107,7 +112,7 @@ def getCategoryArticles(request, id):
         'title' : "Articles in the category: "+ category.name,
     }
 
-    return render(request, 'blog/blog.html',context)
+    return render(request, 'blog.html',context)
     
 def searchArticles(request):
 
@@ -120,6 +125,90 @@ def searchArticles(request):
     }
 
     return JsonResponse(data)
+
+
+###Services
+@method_decorator(login_required, name="dispatch")
+class ServiceList(LoginRequiredMixin, ListView):
+    model = Service
+    context_object_name = 'services'
+    template_name = "admin/services.html"
+
+@method_decorator(login_required, name="dispatch")
+class ServiceCreate(CreateView):
+    model = Service
+    template_name = "admin/layouts/default_form.html"
+    fields = ['icon','name', 'description']
+    success_url = '/staff/services'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = 'Service'
+        return context
+
+@method_decorator(login_required, name="dispatch")
+class ServiceDetails(DetailView):
+    model = Service
+    template_name = "admin/service_details.html"
+    context_object_name = "services"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["projects"] = Project.objects.filter(service = self.kwargs['pk'])
+        return context
+
+@method_decorator(login_required, name="dispatch")
+class ServiceUpdate(UpdateView):
+    model = Service
+    template_name = "admin/layouts/default_form.html"
+    fields = ['name', 'description', 'icon']
+    success_url = '/staff/services'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = 'Service'
+        return context
+
+###Projects
+@method_decorator(login_required, name="dispatch")
+class ProjectList(LoginRequiredMixin, ListView):
+    model = Project
+    context_object_name = 'projects'
+    template_name = "admin/projects.html"
+
+@method_decorator(login_required, name="dispatch")
+class ProjectCreate(CreateView):
+    model = Project
+    template_name = "admin/layouts/default_form.html"
+    fields = ['image_url','title', 'description', 'keywords', 'service']
+    success_url = '/staff/projects'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = 'Project'
+        return context
+
+@method_decorator(login_required, name="dispatch")
+class ProjectDetails(DetailView):
+    model = Project
+    template_name = "admin/project_details.html"
+    context_object_name = "project"
+
+@method_decorator(login_required, name="dispatch")
+class ProjectUpdate(UpdateView):
+    model = Project
+    template_name = "admin/layouts/default_form.html"
+    fields = ['image_url','title', 'description', 'keywords', 'service']
+    success_url = '/staff/projects'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = 'Project'
+        return context
+
+def seo(request):
+
+    return render(request, 'admin/seo.html', context={})
 
 
 
