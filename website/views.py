@@ -19,7 +19,23 @@ def home(request):
 
 def dashboard(request):
 
-    return render(request, 'admin/dashboard.html', context={})
+    articles = Article.objects.all()
+    messages = Feedback.objects.all()
+    
+
+    context = {
+
+        'recent_articles' : articles.order_by('id').reverse()[:5],
+        'article_count' : articles.count(),
+        'projects_count' : Project.objects.count(),
+        'messages_count' : messages.count(),
+        'feedback_list' : messages.filter(status = 0)[:2],
+        'categories' : Category.objects.all(),
+        'services' : Service.objects.all()
+
+    }
+
+    return render(request, 'admin/dashboard.html', context)
 
 @login_required
 def showFeedback(request):

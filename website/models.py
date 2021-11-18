@@ -37,12 +37,14 @@ class Project(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return self.title
 
 class ProjectWorker(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.user.username
 
 class Article(models.Model):
     title = models.CharField(max_length = 100)
@@ -89,6 +91,7 @@ class Feedback(models.Model):
         ('G','General'),
         ('Q','Quote'),
     )
+    status = models.IntegerField(default=0)
     type = models.CharField(blank=True, null=True, choices=TYPE_CHOICES, max_length=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -100,6 +103,7 @@ class Seo(models.Model):
     title = models.CharField(max_length=100)
     keywords = models.TextField()
     occasion = models.CharField(max_length = 50)
+    site_views = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

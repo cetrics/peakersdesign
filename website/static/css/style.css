@@ -84,3 +84,7 @@
     background-color: #0b0500;
 
 }
+
+.text-acc{
+    color: var(--accent) !important;
+}

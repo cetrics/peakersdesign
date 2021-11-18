@@ -18,8 +18,12 @@ body{
 }
 .wrapper {
     display: flex;
-    width: 100vw;
+    width: 100%;
     align-items: stretch;
+}
+
+.card-header{
+    background-color: white !important;
 }
 
 #sidebar {

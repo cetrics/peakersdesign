@@ -12,30 +12,30 @@
 
     <ul class="list-unstyled components">
         
-        <li class="active">
+        <li class="{% if request.path == '/staff/dashboard' %} active {% endif %}">
             <a href="{% url 'dashboard' %}" >
                 <i class="fa fa-tachometer mr-3"></i>
                 Dashboard
             </a>
         </li>
-        <li>
+        <li class="{% if request.path == '/staff/categories' %} active {% endif %}">
             <a href="{% url 'categories' %}"><i class="fa fa-tags mr-3"></i>Categories</a>
         </li>
-        <li>
+        <li class="{% if '/staff/services' in request.path  %} active {% endif %}">
             <a href="{% url 'services' %}"><i class="fa fa-cogs mr-3"></i>Services</a>
         </li>
         
         
-        <li>
+        <li class="{% if '/staff/articles' in request.path %} active {% endif %}">
             <a href="{% url 'articles' %}"><i class="fa fa-clipboard mr-3"></i>Articles</a>
         </li>
-        <li>
+        <li class="{% if request.path == '/staff/projects' %} active {% endif %}">
             <a href="{% url 'projects' %}"><i class="fa fa-code-fork mr-3"></i>Projects</a>
         </li>
-        <li>
+        <li class="{% if request.path == '/staff/feedback' %} active {% endif %}">
             <a href="{% url 'feedback' %}"><i class="fa fa-comments mr-3"></i>Feedback</a>
         </li>
-        <li>
+        <li class="{% if request.path == '/staff/seo' %} active {% endif %}">
             <a href="{% url 'seo' %}"><i class="fa fa-globe mr-3"></i>SEO</a>
         </li>
         
