@@ -35,16 +35,16 @@
     
                             {% for category in categories %}
     
-                            <tr>
+                            <tr id="categories_{{category.id}}">
                                 <td>{{category.id}}</td>
                                 <td>{{category.name}}</td>
                                 <td>{{category.views}}</td>
                                 <td>{{category.articles|length}}</td>
                                 <td>{{category.created_at}}</td>
                                 <td>
-                                    <a href="{% url 'delete_category' category.id %}" class="btn btn-danger btn-sm">
+                                    <button onclick="deleteItem('/staff/categories/delete/{{category.id}}', '#categories_{{category.id}}')" class="btn btn-text-main btn-sm">
                                         <i class="fa fa-trash"></i>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                             {% endfor %}

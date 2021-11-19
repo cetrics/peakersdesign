@@ -34,7 +34,7 @@
     
                             {% for service in services %}   
     
-                            <tr>
+                            <tr id="services_{{service.id}}">
                                 <td>{{service.id}}</td>
                                 <td>{{service.name}}</td>
                                 <td>{{service.projects|length}}</td>
@@ -43,9 +43,9 @@
                                     <a href="{% url 'update_service' service.id %}" class="btn btn-text-main btn-sm">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a href="#" class="btn btn-text-main btn-sm">
+                                    <button onclick="deleteItem('/staff/services/delete/{{service.id}}', '#services_{{service.id}}')"  class="btn btn-text-main btn-sm">
                                         <i class="fa fa-trash"></i>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                             {% endfor %}

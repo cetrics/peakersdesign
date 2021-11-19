@@ -10,6 +10,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_http_methods
+from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string, get_template
+
+
+
 
 # Create your views here.
 def home(request):
@@ -75,7 +81,24 @@ def deleteCategory(request, id):
     our_category = Category.objects.get(pk = id)
     our_category.delete()
 
-    return HttpResponseRedirect('/staff/categories')
+    context = {
+        'success': True
+    }
+
+    return JsonResponse(context)
+
+
+@login_required
+def deleteService(request, id):
+
+    service = Service.objects.get(pk = id)
+    service.delete()
+
+    context = {
+        'success': True
+    }
+
+    return JsonResponse(context)
 
 @method_decorator(login_required, name="dispatch")
 class ArticleList(LoginRequiredMixin, ListView):
@@ -227,5 +250,34 @@ def seo(request):
     return render(request, 'admin/seo.html', context={})
 
 
-
-
+def mailStuff(request):
+ 
+    if request.method == "GET":
+ 
+        context = {}
+ 
+        return render(request, 'mail.html', context)
+   
+    else:
+        name = request.POST["name"]
+        email = request.POST["email"]
+        message = request.POST["message"]
+ 
+        context = request.POST
+        text_body = "Hello "+ name + ", "+ message
+        html_body = render_to_string('mail-template.html', context)
+ 
+        mail = EmailMultiAlternatives(
+            subject = "Too Much",
+            from_email = "brigeveriz7@gmail.com",
+            to = [email],
+            body = text_body
+        )
+        mail.attach_alternative(html_body, 'text/html')
+        print(mail.send())
+ 
+        data = {
+ 
+        }
+ 
+        return JsonResponse(data)

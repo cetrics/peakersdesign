@@ -28,7 +28,7 @@ staffpatterns = [
     path('categories', showCategories, name="categories"),
     path('categories/form', categoryForm, name="add_category"),
     path('categories/store', storeCategory, name="store_category"),
-    path('delete/category/<id>',deleteCategory, name="delete_category"),
+    path('categories/delete/<id>',deleteCategory, name="delete_category"),
 
     ##articles
     path('articles', ArticleList.as_view(), name="articles"),
@@ -41,6 +41,7 @@ staffpatterns = [
     path('services/create',ServiceCreate.as_view(), name="add_service"),
     path('services/view/<pk>', ServiceDetails.as_view(), name="view_service"),
     path('services/update/<pk>', ServiceUpdate.as_view(), name="update_service"),
+    path('services/delete/<id>', deleteService, name="delete_service"),
 
     ##projects
     path('projects', ProjectList.as_view(), name="projects"),
