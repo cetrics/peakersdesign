@@ -49,7 +49,8 @@ staffpatterns = [
     path('projects/view/<pk>', ProjectDetails.as_view(), name="view_project"),
     path('projects/update/<pk>', ProjectUpdate.as_view(), name="update_project"),
 
-    path('seo', seo, name="seo")
+    path('seo', seo, name="seo"),
+    path('send/email', mailStuff, name="send_email"),
 
 ]
 

@@ -1,3 +1,4 @@
+from re import sub
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Feedback, Category, Article, Comment, Service, Seo, Project, ProjectWorker
@@ -254,30 +255,32 @@ def mailStuff(request):
  
     if request.method == "GET":
  
-        context = {}
+        context = {
+            'success' : 0
+        }
  
-        return render(request, 'mail.html', context)
+        return JsonResponse(context)
    
     else:
-        name = request.POST["name"]
-        email = request.POST["email"]
+        subject = request.POST["subject"]
+        email = request.POST["recipient"]
         message = request.POST["message"]
  
         context = request.POST
-        text_body = "Hello "+ name + ", "+ message
-        html_body = render_to_string('mail-template.html', context)
+        text_body = message
+        html_body = render_to_string('admin/layouts/mail-template.html', context)
  
         mail = EmailMultiAlternatives(
-            subject = "Too Much",
+            subject = subject,
             from_email = "brigeveriz7@gmail.com",
             to = [email],
             body = text_body
         )
         mail.attach_alternative(html_body, 'text/html')
-        print(mail.send())
+        mail.send()
  
         data = {
- 
+            'success' : 1
         }
  
         return JsonResponse(data)

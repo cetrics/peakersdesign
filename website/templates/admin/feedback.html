@@ -33,9 +33,9 @@
                                 <td>{{feedback.Name}}, {{feedback.email}}, {{feedback.phone_number}}</td>
                                 <td>{{feedback.created_at}}</td>
                                 <td>
-                                    <a href="#" class="btn btn-text-main btn-sm">
+                                    <button onclick="sendEmailModal('{{feedback.email}}')" class="btn btn-text-main btn-sm">
                                         <i class="fa fa-paper-plane"></i>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                             {% endfor %}
