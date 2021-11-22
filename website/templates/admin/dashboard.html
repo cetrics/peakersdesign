@@ -190,7 +190,7 @@
                 <div class="card-header">
                     <div class="row">
                         <h6 class="ml-3 my-auto font-weight-bold">Unread Messages</h6>
-                        <a href="{% url 'add_article' %}" class="btn btn-text-main btn-sm ml-auto mr-1">
+                        <a href="{% url 'feedback' %}" class="btn btn-text-main btn-sm ml-auto mr-1">
                             <i class="fa fa-external-link mr-1"></i>
                             See All
                         </a>
@@ -202,19 +202,22 @@
 
                     <div class="d-flex flex-row">
                         <small class="text-main font-weight-bold">{{feedback.name}}</small><br>
-                        <a href="{% url 'add_article' %}" class="btn btn-text-main btn-sm ml-auto ml-auto">
+                        <button onclick="sendEmailModal('{{feedback.email}}')" class="btn btn-text-main btn-sm ml-auto ml-auto">
                             <i class="fa fa-reply mr-1"></i> Reply
                             
-                        </a>
+                        </button>
                         
                     </div>
                         <small class="text-sec">{{feedback.email}}</small>
                         <h6 class="">{{feedback.message}}</h6>
                         <small>{{feedback.created_at}}</small>
+                        {% if feedback.status == 0 %}
                         <a href="{% url 'add_article' %}" class="btn btn-outline-info border-0 btn-sm ml-auto ml-auto">
                             <i class="fa fa-edit mr-1"></i> Mark as Read
                             
                         </a>
+
+                        {% endif %}
                         <hr>
 
     
