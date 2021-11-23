@@ -24,7 +24,8 @@ def home(request):
 
     context = {
         'services' : Service.objects.all(),
-        'articles' : Article.objects.all()[:3]
+        'articles' : Article.objects.all()[:3],
+        'projects' : Project.objects.all()
     }
 
     return render(request, 'index.html', context)
