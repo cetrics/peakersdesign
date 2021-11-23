@@ -14,6 +14,7 @@ from django.views.decorators.http import require_http_methods
 from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string, get_template
+from .forms import CommentForm
 
 
 
@@ -21,7 +22,118 @@ from django.template.loader import render_to_string, get_template
 # Create your views here.
 def home(request):
 
-    return render(request, 'index.html', context={})
+    context = {
+        'services' : Service.objects.all(),
+        'articles' : Article.objects.all()[:3]
+    }
+
+    return render(request, 'index.html', context)
+
+# Create your views here.
+def contact(request):
+
+    return render(request, 'contact.html', context={})
+
+# Create your views here.
+def about(request):
+
+    return render(request, 'about.html', context={})
+
+# Create your views here.
+def articles(request):
+    context = {
+        'articless' : Article.objects.all(),
+        'all_categories': Category.objects.all(),
+        'title' : "All you can read buffet",            
+
+    }
+
+    return render(request,"articles.html", context )
+
+def searchPosts(request):
+
+    search = request.POST.get('searchInput', None)
+
+    posts = Article.objects.filter(post__icontains= search).values()
+
+    data ={
+        'posts' : list(posts)
+    }
+
+    return JsonResponse(data)
+
+def getPostDetails(request, id):
+    our_post = Article.objects.get(pk = id)
+
+    # our_post.views += 1
+    # our_post.save()
+
+    # our_post.category.views +=1
+    # our_post.category.save()
+    
+    context = {
+        'post' : our_post,
+        'categories' : Category.objects.all(),
+        'articles' :  Article.objects.filter(category = our_post.category).exclude(pk = our_post.id),
+        'commentForm' : CommentForm(),
+        'comments' : Comment.objects.filter(article = our_post.id),
+    }
+
+    return render(request, 'post_details.html', context)
+
+def saveComment(request, id):
+    form = CommentForm(request.POST)
+    redirect_url = "/articles/details/"+id
+
+
+    if form.is_valid():
+        name = form.cleaned_data['name']
+        email = form.cleaned_data['email']
+        phone_number = form.cleaned_data['phone_number']
+        message = form.cleaned_data['message']
+
+        user = User.objects.get(pk = 1)
+        post = Article.objects.get(pk = id)
+
+        Comment.objects.create(message = message, user = user, article = post)
+
+
+        return HttpResponseRedirect(redirect_url)
+
+    else:
+
+        return HttpResponseRedirect(redirect_url)
+
+def getCategoryPosts(request, id):
+
+    category = Category.objects.get(pk = id)
+    posts = Post.objects.filter(category = category.id)
+
+    category.views +=1
+    category.save()
+
+    context = {
+        'posts' : posts,
+        'all_categories': Category.objects.all(),
+        'title' : "Artcles in the category: "+ category.name,
+    }
+
+    return render(request, 'articles.html',context)
+
+def saveFeedback(request):
+
+    myname = request.POST.get("name", None)
+    myemail = request.POST.get("email", None)
+    no= request.POST.get("number", None)
+    themessage = request.POST.get("message", None)
+
+    # print(message)
+
+    Feedback.objects.create(name= myname, email= myemail, phone_number = no, message = themessage)
+
+    data = {}
+
+    return JsonResponse(data)
 
 
 def dashboard(request):

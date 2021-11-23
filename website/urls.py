@@ -56,10 +56,15 @@ staffpatterns = [
 
 urlpatterns = [
     path("", home, name="home"),
-    path("contact", home, name="contact"),
-    path("articles", home, name="articles"),
+    path("contact", contact, name="contact"),
+    path("articles", articles, name="all_articles"),
+    path('search', searchPosts, name="search"),
     path("portfolio", home, name="portfolio"),
     path("request/quote", home, name="request.quote"),
+    path('save/comment/<id>', saveComment, name="save_comment"),
+    path('save/feedback', saveFeedback, name="save_feedback"),
+    path('articles/details/<id>', getPostDetails, name="post_details"),
+    path('posts/category/<id>', getCategoryPosts, name="category_posts"),
     path("staff/", include(staffpatterns))
 ]
 
