@@ -4,12 +4,16 @@
 
 <div class="container-fluid">
 
-    <div class="row justify-content-center mt-3">
+    <div class="row justify-content-center pt-5 bg-main small-banner">
+      <div id="overlay-small"></div>
         <div class="col-lg-8">
+
+          <h3 class="text-center text-light mt-3">{{title}}</h4>
+
 
              <!-- Custom rounded search bars with input group -->
         <form action="">
-            <div class="p-1 bg-light rounded rounded-pill shadow mb-4">
+            <div class="p-2 bg-light rounded rounded-pill shadow mb-4">
               <div class="input-group ">
                 <input autoComplete="off" list="autocompleteList" id="search" type="text" placeholder="What're you searching for?" aria-describedby="button-addon1" class="form-control border-0 bg-light">
                 <div class="input-group-append">
@@ -28,12 +32,12 @@
 
 
 
-    <h4 class="text-center mt-3 mb-5">{{title}}</h4>
 
-    <div class="row">
+    <div class="row mb-5 mt-3">
         
         {% include 'layouts/simple-post.html' %}
 
+     
 
     </div>
 

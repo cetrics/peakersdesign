@@ -42,7 +42,7 @@ def about(request):
 # Create your views here.
 def articles(request):
     context = {
-        'articless' : Article.objects.all(),
+        'articles' : Article.objects.all(),
         'all_categories': Category.objects.all(),
         'title' : "All you can read buffet",            
 
