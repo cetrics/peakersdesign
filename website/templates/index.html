@@ -10,34 +10,34 @@
         text-decoration: none;
 
     }
+
 </style>
 {% endblock %}
 
 {% block 'content' %}
 
 
-<div class="container-fluid">
+<div class="container-fluid banner">
+    
+<div id="overlay"></div>
+    
+
     <div class="row justify-content-center">
-
-        <div class="col-lg-7 col-md-7 col-sm-12 my-auto animate__animated animate__pulse ">
-
-
-            <img src="{% static 'images/landing.svg' %}" class="img-fluid  px-5">
-
-
-
-            
+      <div class="mt-5 col-lg-6 col-md-12 col-sm-12 text-light pt-5">
+          <div style="margin-top: 100px;"></div>
+        <h1 class="mt-5">We design websites, web systems and mobile applications for you.</h1>
+        <div class="d-flex flex-row justify-content-center">
+            <a class="btn btn-outline-light btn-lg mt-3" href="#">Tell me more...</a>
+            <a class="btn btn-light btn-lg mt-3" href="#">Request a Quote</a>
         </div>
-
-        <div class="col-lg-5 col-md-5 col-sm-12 my-auto">
-            
-            <h1 class="">We design websites, web systems and mobile applications for you.</h1>
-
-                <a class="btn btn-outline-main btn-lg mt-3" href="#">Tell me more...</a>
-                <a class="btn btn-main btn-lg mt-3" href="#">Request a Quote</a>
-        </div>
+      </div>
     </div>
+  </div>
+  
 
+
+<div class="container-fluid">
+    
 
     <h3 class="text-center mt-5">Our Services</h3>
 
@@ -87,6 +87,12 @@
 
     $(document).ready(function(){
 
+        $(function () {
+            $(document).scroll(function () {
+                var $nav = $(".fixed-top");
+                $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+            });
+        });
 
     });
 
