@@ -69,6 +69,12 @@ body{
 
 }
 
+.btn-acc:hover{
+
+  color: var(--primary);
+  background-color: var(--accent-hover);
+}
+
 
 .btn-main{
     color: white;
@@ -85,9 +91,9 @@ body{
     background-color: var(--accent);
 }
 .btn-outline-main{
-    color: var(--black);
-    background-color: var(--accent-hover);
-    border: 1px solid var(--accent-hover);
+    color: var(--primary);
+    background-color: transparent;
+    border: 1px solid var(--primary);
 }
 .btn-outline-main:hover{
 
@@ -115,6 +121,7 @@ body{
     color: white;
     background-color: var(--secondary);
 }
+
 
 .btn-sec:hover{
     color: white;
@@ -364,7 +371,7 @@ body{
 
 .project-image{
 
-    margin-left: -3em;
+    /* margin-left: -3em; */
     height: 300px;
     object-fit: cover;
 }

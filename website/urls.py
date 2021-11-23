@@ -56,6 +56,7 @@ staffpatterns = [
 
 urlpatterns = [
     path("", home, name="home"),
+    path("about", about, name="about"),
     path("contact", contact, name="contact"),
     path("articles", articles, name="all_articles"),
     path('search', searchPosts, name="search"),
