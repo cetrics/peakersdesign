@@ -1,23 +1,24 @@
 {% for post in articles %}
 
-        <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
-
-            <div class="card-grid-space">
-                <a class="article-card" href="{% url 'post_details' post.id %}" style="--bg-img: url('{{post.image_url.url}}')">
-                  <div>
-                    <h1>{{post.title}}</h1>
-                    <p>{{post.post | truncatewords:15}}</p>
-                    <div class="date">{{post.created_at | date:"D, d M, Y"}}</div>
-                    <div class="tags">
-                      <div class="tag">{{post.category}}</div>
-                    </div>
-                  </div>
-                </a>
-              </div>
+              <article class="post my-2 ">
+                <div class="post__image-container">
+                    <img src="{{post.image_url.url}}" alt="An image of a Truck">
+                </div>
     
-            
-        </div>
-
+                <div class="post__text-container">
+                    <small class="post__tag bg-acc">{{post.category}}</small>
+                    <h5 class="font-weight-bold">{{post.title}}</h2>
+                    <p class="post__description">{{post.post | truncatewords:15}}</p>
+                    <div class="post__profile">
+                        <!-- <img src="https://images.unsplash.com/photo-1522307837370-cc113a36b784?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ" alt="An image of Carrie Brewer" class="post__author-img"> -->
+    
+                        <div class="post__author-data">
+                            <h6 class="post__author-name">{{post.user|title}}</h3>
+                            <small class="post__date">{{post.created_at | date:"D, d M, Y"}}</small>
+                        </div>
+                    </div>
+                </div>
+            </article>
 
        
 {% endfor %}

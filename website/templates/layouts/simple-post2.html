@@ -1,0 +1,23 @@
+{% for post in articles %}
+
+        <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
+
+            <div class="card-grid-space">
+                <a class="article-card" href="{% url 'post_details' post.id %}" style="--bg-img: url('{{post.image_url.url}}')">
+                  <div>
+                    <h4>{{post.title}}</h1>
+                    <p>{{post.post | truncatewords:15}}</p>
+                    <div class="date">{{post.created_at | date:"D, d M, Y"}}</div>
+                    <div class="tags">
+                      <div class="tag">{{post.category}}</div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+    
+            
+        </div>
+
+
+       
+{% endfor %}
