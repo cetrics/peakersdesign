@@ -1,0 +1,226 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block 'content' %}
+
+<div class="container-fluid mb-5">
+
+    <div class="row justify-content-center pt-5 mb-5 bg-main small-banner">
+      <div id="overlay-small"></div>
+        <div class="col-lg-8">
+
+          <h2 class="text-center text-light mt-3">How to reach us</h4>
+
+
+        </div>
+    </div>
+
+
+<div class="container-fluid">
+
+    
+    <div class="row justify-content-center mt-3">
+
+
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="card bg-main-light mt-1">
+                <div class="card-body text-center text-light">
+                    <p class="text-acc"><i class="fa fa-phone fa-2x"></i></p>
+                    <p class="mx-3 mb-5 mt-2">+254700391535</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="card bg-main-light mt-1">
+                <div class="card-body text-center text-light">
+                    <p class="text-acc"><i class="fa fa-envelope fa-2x"></i></p>
+                    <p class="mx-3 mb-5 mt-2">info@peakerstech.co.ke</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="card bg-main-light mt-1">
+                <div class="card-body text-center text-light">
+                    <p class="text-acc"><i class="fa fa-map-marker fa-2x"></i></p>
+                    <p class="mx-3 mb-5 mt-2">Trinity Baptist Church, Nairobi, Kenya</p>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        
+    </div>
+
+    <div class="row justify-content-center my-5">
+
+        <div class="col-lg-6 col-md-6 col-sm-12">
+
+            <img src="{%static 'images/map.png' %}" class="img-fluid rounded shadow">
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+
+            <div class="card">
+
+                <div class="card-body">
+
+                    <h4 class="text-center text-main font-weight-bold my-3 mb-3">We are happy to respond</h3>
+
+
+                    <form id="contactForm">
+
+                        {% csrf_token %}
+
+
+                        <div class="form-group">
+        
+                            <label for="fname">Name:*</label>
+                            <input type="text" required name="name" class="form-control"  placeholder="Enter first name">
+        
+                        </div>
+        
+                        <div class="form-group">
+               
+                            <label for="email">Email: (optional)</label>
+                            <input type="email"  class="form-control" name="email"  id="email" placeholder="Your email">
+                            
+                        </div>
+
+                        <div class="form-group">
+               
+                            <label for="email">Phone Number: (optional)</label>
+                            <input type="number"  class="form-control" name="number"  id="number" placeholder="Your phone number">
+                            
+                        </div>
+
+        
+                        <div class="form-group">
+        
+                            <label for="message">Message:*</label>
+                            <textarea class="form-control" required name="message" id="password" placeholder="I need help launching a blog site of my own..."></textarea>
+        
+                        </div>
+        
+        
+                        <div class="form-check">
+        
+                            <input type="checkbox" class="form-check-input" name="checkmeout" id="check">
+                            <label for="check">Subscribe to notifications</label>
+        
+                        </div>
+                        
+                        <div class="row justify-content-center">
+                            <button type="submit" class="btn btn-main w-50 mt-4 mb-3">Submit</button>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+
+
+
+
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="thanksModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <!-- <h3 class="text-black ">Much Appreciation</h3> -->
+                    <img src="{% static 'images/thankyou.svg' %}" class="img-fluid px-5">
+                    <h4 class="mt-2">Thank you for your message.</h4>
+                    <p>We will reach out to you as soon as we can. Cheers</p>
+
+                    <button class="btn btn-main  w-50" data-dismiss="modal" aria-label="Close" type="button">Okay</button>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <!-- <h3 class="text-black ">Much Appreciation</h3> -->
+                    <img src="{% static 'images/thankyou.svg' %}" class="img-fluid px-5">
+                    <h4 class="mt-2">it's not you, it's us.</h4>
+                    <p>Sorry, we encountered an error. Please try again later</p>
+
+                    <button class="btn btn-main  w-50" data-dismiss="modal" aria-label="Close" type="button">Okay</button>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+{% endblock %}
+
+{% block 'scripts' %}
+
+<script>
+
+    $(document).ready(function(){
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRFToken': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $("#contactForm").on('submit', function(e){
+
+            e.preventDefault();
+
+            $.ajax({
+                type : 'POST',
+                url : "{% url 'save_feedback' %}",
+                dataType : 'json',
+                data :  $("#contactForm").serialize(),
+                success : function(data){
+                    // $("#thanksModal").modal("show");
+                    $("#thanksModal").modal("show");
+                    $("#contactForm").trigger('reset')
+
+
+                },
+                error: function(data){
+
+                    $("#errorModal").modal("show");
+                    console.log(data)
+
+                }
+                
+            });
+
+
+
+
+        });
+        
+
+    });
+</script>
+
+
+
+{% endblock %}

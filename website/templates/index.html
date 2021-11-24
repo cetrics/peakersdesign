@@ -1,71 +1,144 @@
-{% extends 'blog/base.html' %}
+{% extends 'layouts/base.html' %}
 
 {% load static %}
 
 {% block 'css' %}
 
+<link rel="stylesheet" href="{% static 'owl/assets/owl.carousel.min.css' %}">
+<link rel="stylesheet" href="{% static 'owl/assets/owl.theme.default.min.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <style>
     a{
         text-decoration: none;
 
     }
+
 </style>
 {% endblock %}
 
 {% block 'content' %}
 
 
-<div class="container-fluid">
+<div class="container-fluid banner">
+    
+<div id="overlay"></div>
+    
+
     <div class="row justify-content-center">
-
-        <div class="col-lg-5 col-md-5 col-sm-12 my-auto animate__animated animate__pulse ">
-
-            <small class="font-weight-bold">You've come to the right place.</small>
-            <h1 class="">Ever read a story that made you weep, laugh, both and cry
-                out for more?</h1>
-
-                <a class="btn btn-main btn-lg mt-3" href="#">Tell me more...</a>
-
-            
+      <div class="mt-5 col-lg-6 col-md-12 col-sm-12 text-light pt-5">
+          <div style="margin-top: 100px;"></div>
+        <h1 class="mt-5">We design websites, web systems and mobile applications for you.</h1>
+        <div class="d-flex flex-row justify-content-center">
+            <a class="btn btn-outline-light mr-3 btn-lg mt-3" href="{% url 'about' %}">Tell me more...</a>
+            <a class="btn btn-acc btn-lg mt-3" href="{% url 'contact' %}">Request a Quote</a>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 pb-5 px-4 my-auto">
-
-            <img src="{% static 'images/landing.svg' %}" class="img-fluid py-4 px-5">
-        </div>
+      </div>
     </div>
+</div>
 
 
-    <h3 class="text-center mt-5">Juicy Topics</h3>
 
+
+<div class="container-fluid servcies-section">
 
     <div class="row justify-content-center mb-5 ">
 
-        {% for service in services %}
+        <div class="col-lg-12">
 
-        <div class="col-lg-4 col-md-4 col-sm-12">
-           <a href="{% url 'category_posts' service.id %}">
-            <div class="card bg-black  mt-1">
-                <div class="card-body text-center text-light">
-                    <p class="text-main"><i class="fa fa-ravelry fa-2x"></i></p>
-                    <p class="mx-5 mt-2">{{service.name}}</p>
-        
+            <div class="card border-0 bg-acc-light">
+
+                <div class="card-body">
+
+                    <div class="container-fluid">
+                        <h6 class="text-light">Our Services</h6>
+
+                        <div class="row justify-content-center mb-4">
+
+                        
+                            <div class="owl-carousel">
+                                {% for service in services %}
+
+                                    <!-- <div class="col-lg-4 col-md-4 col-sm-12 d-flex flex-column align-content-stretch"> -->
+                                        <a href="#" class="h-100">
+                                            <div class="card mx-3 text-main bg-light mt-1 h-100">
+                                                <div class="card-body text-center text-main">
+                                                    <p class=""><i class="fa fa-ravelry fa-lg"></i></p>
+                                                    <h5 class=" mx-5 mt-2">{{service.name}}</p>
+                                        
+                                                </div>
+                                            </div>
+                                        </a>
+                                    <!-- </div> -->
+            
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                    </div>
+
+                    
                 </div>
+                
+        
             </div>
-           </a>
         </div>
 
-        {% endfor %}
 
 
     </div>
+</div>
+  
 
-    <h3 class="text-center mt-5">Recent Posts</h3>
+<div class="container-fluid">
+    
 
-    <div class="row my-5">
+
+   
+
+    <h3 class=" mt-5">Our Recent Works</h3>
+
+    <div class="row justify-content-center">
+
+        {% for project in projects %}
+
+        <div class="col-lg-8">
+            <div class="card border-0  rounded">
+                <div class="card-body">
+
+                    <div class="container-fluid">
+
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <img src="{{project.image_url.url}}" class="project-image shadow rounded img-fluid">
+    
+                            </div>
+    
+    
+                            <div class="col-lg-6 d-flex flex-column justify-content-center">
+                                <small>{{project.service}}</small>
+                                <h5 class="font-weight-bold text-main">{{project.title}}</h5>
+                                <p>{{project.description}}</p>
+    
+                                <a href="#" class="btn btn-acc w-50">See More</a>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+    <h3 class=" mt-5">Recent Articles</h3>
+
+    <div class="row justify-content-center my-5">
 
         
-        {% include 'blog/simple-post.html' %}
+        {% include 'layouts/simple-post.html' %}
         
 
     </div>
@@ -81,12 +154,19 @@
 
 {% block 'scripts' %}
 
+<script src="{% static 'owl/owl.carousel.min.js' %}"></script>
+
 <script>
 
-    $(document).ready(function(){
+$(document).ready(function(){
+  $(".owl-carousel").owlCarousel({
+    animateOut: 'fadeOut',
+    autoplay:true,
+    autoplayTimeout:4000,
+    autoplayHoverPause:false,
+  });
+});
 
-
-    });
 
 </script>
 

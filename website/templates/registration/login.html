@@ -1,4 +1,4 @@
-{% extends 'blog/base.html' %}
+{% extends 'layouts/base.html' %}
 
 
 {% load static %}
@@ -7,6 +7,17 @@
 
 
 {% block 'content' %}
+
+<div class="row justify-content-center pt-5 mb-5 bg-main small-banner">
+  <div id="overlay-small"></div>
+    <div class="col-lg-8">
+
+      <h2 class="text-center text-light mt-3">Welcome Back</h4>
+
+
+    </div>
+</div>
+
 
 
 <div class="container-fluid">
@@ -43,7 +54,7 @@
     
     
               <form method="post" action="{% url 'login' %}">
-                {% include 'blog/form-layout.html '%}
+                {% include 'layouts/form-layout.html '%}
 
                 <input type="hidden" name="next" value="{{ next }}" />
               </form>

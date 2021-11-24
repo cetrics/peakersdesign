@@ -1,15 +1,37 @@
+:root{
+
+    --primary: #081040;
+    --primary_hover: #020822;
+    --secondary: #00BCE9;
+    --secondary-hover: #028daf;
+    --accent: #BCE900;
+    --accent-hover: #8caf00;
+    --light-background: #08104010;
+    /* --light-background: #0810401a; */
+
+
+}
+
+body{
+    background-color: var(--light-background);
+    font-family: 'League Spartan', arial;
+}
 .wrapper {
     display: flex;
-    width: 100vw;
+    width: 100%;
     align-items: stretch;
+}
+
+.card-header{
+    background-color: white !important;
 }
 
 #sidebar {
     min-width: 250px;
     max-width: 250px;
     min-height: 100vh;
-    background: #00a870;
-    color: #fff;
+    background: var(--primary);
+    color:white;
     transition: all 0.3s;
 }
 
@@ -45,35 +67,35 @@ a, a:hover, a:focus {
 
 #sidebar .sidebar-header {
     padding: 40px;
-    background: #0b0500;
+    background: var(--primary);
 }
 
 #sidebar ul.components {
     padding: 0 0;
-    border-bottom: 1px solid #00a870;
+    border-bottom: 1px solid var(--primary_hover);
 }
 
 #sidebar ul p {
-    color: #fff;
+    color: white;
     padding: 10px;
 }
 
 #sidebar ul li a {
     padding: 10px;
-    font-size: 1.1em;
+    font-size: 0.9em;
     display: block;
 }
 #sidebar ul li a:hover {
-    color: #0b0500;
-    background: #fff;
+    color: white;
+    background: var(--secondary);
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
-    color: #fff;
-    background: #01724c;
+    color: var(--primary);
+    background: white;
 }
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #00a870;
+    background: var(--primary);
 }
