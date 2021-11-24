@@ -4,6 +4,8 @@
 
 {% block 'css' %}
 
+<link rel="stylesheet" href="{% static 'owl/assets/owl.carousel.min.css' %}">
+<link rel="stylesheet" href="{% static 'owl/assets/owl.theme.default.min.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <style>
     a{
@@ -35,6 +37,8 @@
 </div>
 
 
+
+
 <div class="container-fluid servcies-section">
 
     <div class="row justify-content-center mb-5 ">
@@ -51,21 +55,23 @@
                         <div class="row justify-content-center mb-4">
 
                         
-                            {% for service in services %}
+                            <div class="owl-carousel">
+                                {% for service in services %}
 
-                            <div class="col-lg-4 col-md-4 col-sm-12 d-flex flex-column align-content-stretch">
-                                <a href="#" class="h-100">
-                                    <div class="card text-main bg-light mt-1 h-100">
-                                        <div class="card-body text-center text-main">
-                                            <p class=""><i class="fa fa-ravelry fa-lg"></i></p>
-                                            <h5 class=" mx-5 mt-2">{{service.name}}</p>
-                                
-                                        </div>
-                                    </div>
-                                </a>
+                                    <!-- <div class="col-lg-4 col-md-4 col-sm-12 d-flex flex-column align-content-stretch"> -->
+                                        <a href="#" class="h-100">
+                                            <div class="card mx-3 text-main bg-light mt-1 h-100">
+                                                <div class="card-body text-center text-main">
+                                                    <p class=""><i class="fa fa-ravelry fa-lg"></i></p>
+                                                    <h5 class=" mx-5 mt-2">{{service.name}}</p>
+                                        
+                                                </div>
+                                            </div>
+                                        </a>
+                                    <!-- </div> -->
+            
+                                {% endfor %}
                             </div>
-    
-                        {% endfor %}
 
                         </div>
                     </div>
@@ -82,7 +88,6 @@
     </div>
 </div>
   
-
 
 <div class="container-fluid">
     
@@ -149,12 +154,19 @@
 
 {% block 'scripts' %}
 
+<script src="{% static 'owl/owl.carousel.min.js' %}"></script>
+
 <script>
 
-    $(document).ready(function(){
+$(document).ready(function(){
+  $(".owl-carousel").owlCarousel({
+    animateOut: 'fadeOut',
+    autoplay:true,
+    autoplayTimeout:4000,
+    autoplayHoverPause:false,
+  });
+});
 
-       
-    });
 
 </script>
 
