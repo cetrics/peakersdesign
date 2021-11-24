@@ -2,7 +2,7 @@
 
               <article class="post my-2 ">
                 <div class="post__image-container">
-                    <img src="{{post.image_url.url}}" alt="An image of a Truck">
+                   <a href="{% url 'post_details' post.id %}"> <img src="{{post.image_url.url}}" alt="An image of a Truck"></a>
                 </div>
     
                 <div class="post__text-container">
