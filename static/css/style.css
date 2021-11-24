@@ -308,7 +308,21 @@ body{
       text-align: center;
     }
   }
-  
+ 
+  @media screen and (min-width: 768px){
+    .servcies-section{
+      margin-top: -100px;
+  }
+
+  }
+  @media screen and (max-width: 768px){
+    
+      .servcies-section{
+        margin-top: 20px;
+    }
+
+
+  }
   @media screen and (max-width: 500px) {
     .cards-wrapper {
       padding: 4rem 2rem;
@@ -346,10 +360,6 @@ body{
   .bg-acc-lighter{
     background-color:#f097084b;
 }
-
-  .servcies-section{
-      margin-top: -100px;
-  }
 
   .bg-sec-light{
     background-color:#00bae9d8;
