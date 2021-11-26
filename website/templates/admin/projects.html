@@ -42,9 +42,13 @@
                                 <td>{{project.service}}</td>
                                 <td>{{project.created_at}}</td>
                                 <td>
+                                    <a href="{% url 'update_project' project.id %}" class="btn btn-text-main btn-sm">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
                                     <a href="{% url 'view_project' project.id %}" class="btn btn-main btn-sm">
                                         <i class="fa fa-eye"></i>
                                     </a>
+                                    
                                 </td>
                             </tr>
                             {% endfor %}

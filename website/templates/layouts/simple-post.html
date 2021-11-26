@@ -8,7 +8,10 @@
                 <div class="post__text-container">
                     <small class="post__tag bg-acc">{{post.category}}</small>
                     <h5 class="font-weight-bold">{{post.title}}</h2>
-                    <p class="post__description">{{post.post | truncatewords:15}}</p>
+
+                        {% autoescape off %}
+                            <p class="post__description">{{post.post | truncatewords:15}}</p>
+                        {% endautoescape %}
                     <div class="post__profile">
                         <!-- <img src="https://images.unsplash.com/photo-1522307837370-cc113a36b784?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ" alt="An image of Carrie Brewer" class="post__author-img"> -->
     

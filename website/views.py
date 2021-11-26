@@ -54,8 +54,8 @@ def articles(request):
 # Create your views here.
 def projects(request):
     context = {
-        'articles' : Article.objects.all(),
-        'projects' : Project.objects.all()[:3],     
+        'articles' : Article.objects.all()[:3],
+        'projects' : Project.objects.all(),     
     }
 
     return render(request,"projects.html", context )
@@ -83,7 +83,7 @@ def getPostDetails(request, id):
     
     context = {
         'post' : our_post,
-        'categories' : Category.objects.all(),
+        'categories' : Category.objects.filter(article__gt = 0),
         'articles' :  Article.objects.filter(category = our_post.category).exclude(pk = our_post.id),
         'commentForm' : CommentForm(),
         'comments' : Comment.objects.filter(article = our_post.id),
@@ -102,7 +102,10 @@ def saveComment(request, id):
         phone_number = form.cleaned_data['phone_number']
         message = form.cleaned_data['message']
 
-        user = User.objects.get(pk = 1)
+        user = User.objects.filter(email = email).first()
+
+        if not user:
+            user = User.objects.create_user(name, email, email)
         post = Article.objects.get(pk = id)
 
         Comment.objects.create(message = message, user = user, article = post)
@@ -117,13 +120,13 @@ def saveComment(request, id):
 def getCategoryPosts(request, id):
 
     category = Category.objects.get(pk = id)
-    posts = Post.objects.filter(category = category.id)
+    posts = Article.objects.filter(category = category.id)
 
     category.views +=1
     category.save()
 
     context = {
-        'posts' : posts,
+        'articles' : posts,
         'all_categories': Category.objects.all(),
         'title' : "Artcles in the category: "+ category.name,
     }
