@@ -99,39 +99,7 @@
 
     <div class="row justify-content-center">
 
-        {% for project in projects %}
-
-        <div class="col-lg-8">
-            <div class="card border-0  rounded">
-                <div class="card-body">
-
-                    <div class="container-fluid">
-
-                        <div class="row">
-
-                            <div class="col-lg-6">
-                                <img src="{{project.image_url.url}}" class="project-image shadow rounded img-fluid">
-    
-                            </div>
-    
-    
-                            <div class="col-lg-6 d-flex flex-column justify-content-center">
-                                <small>{{project.service}}</small>
-                                <h5 class="font-weight-bold text-main">{{project.title}}</h5>
-                                <p>{{project.description}}</p>
-    
-                                <a href="#" class="btn btn-acc w-50">See More</a>
-                            </div>
-                        </div>
-                        
-                    </div>
-
-                    
-                </div>
-            </div>
-        </div>
-
-        {% endfor %}
+        {% include 'layouts/project-layout.html' %}
     </div>
     <h3 class=" mt-5">Recent Articles</h3>
 

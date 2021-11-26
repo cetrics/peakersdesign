@@ -51,6 +51,15 @@ def articles(request):
 
     return render(request,"articles.html", context )
 
+# Create your views here.
+def projects(request):
+    context = {
+        'articles' : Article.objects.all(),
+        'projects' : Project.objects.all()[:3],     
+    }
+
+    return render(request,"projects.html", context )
+
 def searchPosts(request):
 
     search = request.POST.get('searchInput', None)

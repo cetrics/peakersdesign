@@ -1,0 +1,105 @@
+{% extends 'layouts/base.html' %}
+
+{% block 'content' %}
+
+<div class="container-fluid">
+
+    <div class="row justify-content-center pt-5 bg-main small-banner">
+      <div id="overlay-small"></div>
+        <div class="col-lg-8">
+
+          <h3 class="text-center text-light mt-3">Our Projects</h4>
+        </div>
+    </div>
+
+
+
+
+    <div class="row justify-content-center mb-5 mt-3">
+        
+
+        {% include 'layouts/project-layout.html' %}
+        
+
+     
+
+    </div>
+
+   
+
+    
+</div>
+
+
+{% endblock %}
+
+{% block 'scripts' %}
+
+<script>
+
+  $(document).ready(function(){
+
+    $.ajaxSetup({
+            headers: {
+                'X-CSRFToken': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+    $("#search").blur(function(){
+
+      setTimeout(function(){
+
+        $("#options").html("");
+
+      }, 1000)
+
+    })
+
+
+    $("#search").keyup(function(){
+
+      // console.log($(this).val());
+      let searchData = $(this).val()
+
+
+      $.ajax({
+      type: "POST",
+      url: "{% url 'search' %}",
+      dataType: "json",
+      data: {'searchInput' : searchData} ,
+      success:  function(data){
+
+        $("#options").html("");
+
+        if(data['posts'].length != 0){
+
+          for (i=0; i<data['posts'].length; i++) {
+
+            let post = data['posts'][i]['title']
+            let url = "/posts/details/"+ data['posts'][i]['id']
+
+            $("#options").append('<a class="btn btn-outline-dark border-0" href="'+url+'">'
+              +post+'</a> <br><hr>')
+
+          }
+
+        }
+          
+      },
+      error: function(data){
+      }
+    });
+
+
+
+    })
+
+
+
+  });
+
+
+</script>
+
+
+{% endblock %}

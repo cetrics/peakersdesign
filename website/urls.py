@@ -59,6 +59,7 @@ urlpatterns = [
     path("about", about, name="about"),
     path("contact", contact, name="contact"),
     path("articles", articles, name="all_articles"),
+    path("projects", projects, name="all_projects"),
     path('search', searchPosts, name="search"),
     path("portfolio", home, name="portfolio"),
     path("request/quote", home, name="request.quote"),
@@ -71,3 +72,4 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    
