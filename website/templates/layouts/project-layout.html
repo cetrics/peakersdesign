@@ -18,8 +18,16 @@
                                 <small>{{project.service}}</small>
                                 <h5 class="font-weight-bold text-main">{{project.title}}</h5>
                                 <p>{{project.description}}</p>
-    
-                                <a href="#" class="btn btn-acc w-50">See More</a>
+
+                                <div class="d-flex flex-row">
+                                    {% if project.project_url %}
+                                        <a href="{{project.project_url}}" class="btn btn-outline-main mr-1">Open Project</a>
+                                    {% endif %}
+                                    <a href="#" class="btn btn-acc ">See Details</a>
+
+                                </div>
+
+                                
                             </div>
                         </div>
                         
