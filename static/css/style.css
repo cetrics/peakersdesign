@@ -321,6 +321,12 @@ body{
         margin-top: 20px;
     }
 
+    .small-nav{
+      background-color: var(--primary);
+      padding: 20px;
+      border-radius: 15px;
+    }
+
 
   }
   
