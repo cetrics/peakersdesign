@@ -72,6 +72,21 @@ def searchPosts(request):
 
     return JsonResponse(data)
 
+def search(request):
+
+    search = request.GET.get('search')
+
+    posts = Article.objects.filter(post__icontains= search)
+
+    context = {
+        'articles' : posts,
+        'all_categories': Category.objects.all(),
+        'title' : "Posts matching:"+search,            
+
+    }
+
+    return render(request,"articles.html", context )
+
 def getPostDetails(request, id):
     our_post = Article.objects.get(pk = id)
 

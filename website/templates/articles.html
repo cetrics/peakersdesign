@@ -12,10 +12,10 @@
 
 
              <!-- Custom rounded search bars with input group -->
-        <form action="">
+        <form action="{% url 'search.post' %}">
             <div class="p-2 bg-light rounded rounded-pill shadow mb-4">
               <div class="input-group ">
-                <input autoComplete="off" list="autocompleteList" id="search" type="text" placeholder="What're you searching for?" aria-describedby="button-addon1" class="form-control border-0">
+                <input autoComplete="off" name="search" list="autocompleteList" id="search" type="text" placeholder="What're you searching for?" aria-describedby="button-addon1" class="form-control border-0">
                 <div class="input-group-append">
                   <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
                 </div>
@@ -32,14 +32,29 @@
 
 
 
-
+    {% if articles %}
     <div class="row justify-content-center mb-5 mt-3">
         
-        {% include 'layouts/simple-post.html' %}
+      {% include 'layouts/simple-post.html' %}
 
-     
+  </div>
+  {% else %}
 
+  <div class="row justify-content-center my-5">
+    <div class="col-lg-4  text-center">
+      <h4 class="text-center">
+        No posts matching your query.
+      </h4>
+
+      <a href="{% url 'all_articles' %}" class="btn btn-main">All Articles</a>
     </div>
+  </div>
+
+  
+
+  {% endif %}
+
+    
 
    
 
