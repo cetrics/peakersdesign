@@ -99,7 +99,6 @@ def saveComment(request, id):
     if form.is_valid():
         name = form.cleaned_data['name']
         email = form.cleaned_data['email']
-        phone_number = form.cleaned_data['phone_number']
         message = form.cleaned_data['message']
 
         user = User.objects.filter(email = email).first()
@@ -111,11 +110,13 @@ def saveComment(request, id):
         Comment.objects.create(message = message, user = user, article = post)
 
 
-        return HttpResponseRedirect(redirect_url)
+        # return HttpResponseRedirect(redirect_url)
+        return JsonResponse({'success': True})
 
     else:
 
-        return HttpResponseRedirect(redirect_url)
+        # return HttpResponseRedirect(redirect_url)
+        return JsonResponse({'success': False})
 
 def getCategoryPosts(request, id):
 
@@ -377,24 +378,24 @@ def seo(request):
 
 
 def mailStuff(request):
- 
+
     if request.method == "GET":
- 
+
         context = {
             'success' : 0
         }
- 
+
         return JsonResponse(context)
-   
+
     else:
         subject = request.POST["subject"]
         email = request.POST["recipient"]
         message = request.POST["message"]
- 
+
         context = request.POST
         text_body = message
         html_body = render_to_string('admin/layouts/mail-template.html', context)
- 
+
         mail = EmailMultiAlternatives(
             subject = subject,
             from_email = "brigeveriz7@gmail.com",
@@ -403,9 +404,9 @@ def mailStuff(request):
         )
         mail.attach_alternative(html_body, 'text/html')
         mail.send()
- 
+
         data = {
             'success' : 1
         }
- 
+
         return JsonResponse(data)

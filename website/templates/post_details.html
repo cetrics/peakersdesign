@@ -18,6 +18,18 @@
   border-left: 2px solid #F09808;
   color: #081040;
 }
+
+.category-link{
+    text-decoration: none;
+    text-decoration-line: none;
+    color: #081040;
+}
+.category-link:hover{
+    color: #00BCE9;
+    
+    text-decoration-line: none;
+
+}
 </style>
 
 {% endblock %}
@@ -54,24 +66,21 @@
         </div>
 
         <div class="col-lg-4 d-lg-block d-none">
-            <div class="card">
-                <div class="card-header">
-                    <h5>More Categories</h5>
-
-                </div>
+            <div class="card border-0 shadow-sm">
                 <div class="card-body">
+                    <h5 class="text-acc">More Categories</h5>
                     
                     {% for category in categories %}
-
-                        <a href="{% url 'category_posts' category.id %}">{{category}}</a>
-                        <hr>
+                    <hr>
+                        <a href="{% url 'category_posts' category.id %}" class="category-link">{{category}}</a>
+                        
                     {% endfor %}
                 </div>
             </div>
         </div>
 
         <div class="col-lg-6 col-md-6 col-sm-12 my-5">
-            <h5>Comments</h5>
+            <h4>Comments</h4>
             <hr>
 
             {% if not comments %}
@@ -92,11 +101,11 @@
 
         </div>
 
-        <div class="col-lg-6 col-md-6 col-sm-12 my-5">
-            <div class="card">
+        <div class="col-lg-6 col-md-6 col-sm-12 mb-5 mt-4">
+            <div class="card bg-transparent border-0">
                 <div class="card-body">
-                    <h5>We'd like to hear your thoughts about this</h5>
-                    <form action="{% url 'save_comment' post.id %}" method="POST">
+                    <h4 class="mb-3">Leave a comment</h4>
+                    <form id="commentForm" method="POST">
 
                         {% csrf_token %}
 
@@ -129,16 +138,37 @@
         </div>
     </div>
 
-    <h4 class="mt-5 mb-3">Related Articles</h4>
-    <div class="row justify-content-center mb-5">
+    {% if posts %}
+        <h4 class="mt-5 mb-3">Related Articles</h4>
+        <div class="row justify-content-center mb-5">
 
-        {% include 'layouts/simple-post.html' %}
-
-    </div>
+            {% include 'layouts/simple-post.html' %}
+    
+        </div>
+    {% endif %}
+    
 
 
 
 </div>
+
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <!-- <h3 class="text-black ">Much Appreciation</h3> -->
+                    <!-- <img src="{% static 'images/thankyou.svg' %}" class="img-fluid px-5"> -->
+                    <h5 class="mt-2">Thank you for sharing your comment.</h5>
+
+                    <button class="btn btn-main  w-50" data-dismiss="modal" aria-label="Close" type="button">Okay</button>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
@@ -146,6 +176,48 @@
 
 {% block 'scripts' %}
 <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+
+<script>
+
+    $(document).ready(function(){
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRFToken': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var url = "{% url 'save_comment' post.id %}";
+
+        $("#commentForm").on("submit", function(e){
+
+            e.preventDefault();
+
+            $.ajax({
+
+                url: url,
+                data: $("#commentForm").serialize(),
+                dataType: "json",
+                type: "POST",
+                success: function(data){
+                    $("#successModal").modal("show");
+                    $("#commentForm").trigger('reset')
+
+                    setTimeout(function(){
+                        window.location.reload()
+                    }, 2000)
+
+                },
+                error: function(data){
+                    console.log(data)
+                }
+
+            });
+
+
+        });
+    });
+</script>
 
 {% endblock %}
 
