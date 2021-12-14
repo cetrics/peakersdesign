@@ -66,7 +66,12 @@
     </div>
 
 
-    <h4 class="mt-5 mb-3">Recent Articles</h4>
+    <div class="row mt-5 mb-3 px-4">
+        <h4 class="">Recent Articles</h4>
+
+        <a href="{% url 'all_articles' %}" class="btn btn-main ml-auto btn-sm my-auto"><i class="fa fa-arrow-circle-right mr-2"></i>See All</a>
+    </div>
+
     <div class="row justify-content-center mb-5">
 
         {% include 'layouts/simple-post.html' %}

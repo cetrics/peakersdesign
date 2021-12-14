@@ -98,7 +98,7 @@ def getPostDetails(request, id):
     
     context = {
         'post' : our_post,
-        'categories' : Category.objects.filter(article__gt = 0),
+        'categories' : Category.objects.all(),
         'articles' :  Article.objects.filter(category = our_post.category).exclude(pk = our_post.id),
         'commentForm' : CommentForm(),
         'comments' : Comment.objects.filter(article = our_post.id),
