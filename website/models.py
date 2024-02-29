@@ -31,6 +31,7 @@ class Project(models.Model):
     views = models.IntegerField(default=0,blank=True)
     slug = models.SlugField(max_length=200)
     image_url = models.ImageField()
+    project_url = models.CharField(max_length= 255, blank=True, null = True)
     keywords = models.TextField()
     service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

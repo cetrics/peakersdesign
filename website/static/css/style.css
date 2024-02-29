@@ -321,6 +321,12 @@ body{
         margin-top: 20px;
     }
 
+     .small-nav{
+      background-color: var(--primary);
+      padding: 20px;
+      border-radius: 15px;
+    }
+
 
   }
   
@@ -471,4 +477,11 @@ body{
       margin-left: initial;
       margin-right: initial;
   }
+}
+
+.avatar {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 200px;
 }

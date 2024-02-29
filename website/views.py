@@ -51,6 +51,15 @@ def articles(request):
 
     return render(request,"articles.html", context )
 
+# Create your views here.
+def projects(request):
+    context = {
+        'articles' : Article.objects.all()[:3],
+        'projects' : Project.objects.all(),     
+    }
+
+    return render(request,"projects.html", context )
+
 def searchPosts(request):
 
     search = request.POST.get('searchInput', None)
@@ -62,6 +71,21 @@ def searchPosts(request):
     }
 
     return JsonResponse(data)
+
+def search(request):
+
+    search = request.GET.get('search')
+
+    posts = Article.objects.filter(post__icontains= search)
+
+    context = {
+        'articles' : posts,
+        'all_categories': Category.objects.all(),
+        'title' : "Posts matching:"+search,            
+
+    }
+
+    return render(request,"articles.html", context )
 
 def getPostDetails(request, id):
     our_post = Article.objects.get(pk = id)
@@ -90,31 +114,35 @@ def saveComment(request, id):
     if form.is_valid():
         name = form.cleaned_data['name']
         email = form.cleaned_data['email']
-        phone_number = form.cleaned_data['phone_number']
         message = form.cleaned_data['message']
 
-        user = User.objects.get(pk = 1)
+        user = User.objects.filter(email = email).first()
+
+        if not user:
+            user = User.objects.create_user(name, email, email)
         post = Article.objects.get(pk = id)
 
         Comment.objects.create(message = message, user = user, article = post)
 
 
-        return HttpResponseRedirect(redirect_url)
+        # return HttpResponseRedirect(redirect_url)
+        return JsonResponse({'success': True})
 
     else:
 
-        return HttpResponseRedirect(redirect_url)
+        # return HttpResponseRedirect(redirect_url)
+        return JsonResponse({'success': False})
 
 def getCategoryPosts(request, id):
 
     category = Category.objects.get(pk = id)
-    posts = Post.objects.filter(category = category.id)
+    posts = Article.objects.filter(category = category.id)
 
     category.views +=1
     category.save()
 
     context = {
-        'posts' : posts,
+        'articles' : posts,
         'all_categories': Category.objects.all(),
         'title' : "Artcles in the category: "+ category.name,
     }
@@ -365,24 +393,24 @@ def seo(request):
 
 
 def mailStuff(request):
- 
+
     if request.method == "GET":
- 
+
         context = {
             'success' : 0
         }
- 
+
         return JsonResponse(context)
-   
+
     else:
         subject = request.POST["subject"]
         email = request.POST["recipient"]
         message = request.POST["message"]
- 
+
         context = request.POST
         text_body = message
         html_body = render_to_string('admin/layouts/mail-template.html', context)
- 
+
         mail = EmailMultiAlternatives(
             subject = subject,
             from_email = "brigeveriz7@gmail.com",
@@ -391,9 +419,9 @@ def mailStuff(request):
         )
         mail.attach_alternative(html_body, 'text/html')
         mail.send()
- 
+
         data = {
             'success' : 1
         }
- 
+
         return JsonResponse(data)

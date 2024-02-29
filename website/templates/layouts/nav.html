@@ -3,7 +3,7 @@
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
         <a href="/" class="navbar-brand">
-            <img src="{% static 'images/logo_white_nobg.png' %}" class="img-fluid" height="100px" width="150px">
+            <img src="{% static 'images/logo_orange_small.png' %}" class="img-fluid" height="150px" width="170px">
         </a>
 
         <button type="button" data-target="#myNavigation"
@@ -14,7 +14,7 @@
         
         </button>
 
-        <div class="collapse navbar-collapse" id="myNavigation">
+        <div class="collapse navbar-collapse small-nav" id="myNavigation">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
@@ -31,7 +31,7 @@
                 {% endif %} -->
 
                 <li class="nav-item"><a class="nav-link" href="{% url 'all_articles' %}">Articles</a></li>
-                <!-- <li class="nav-item"><a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a></li> -->
+                <li class="nav-item"><a class="nav-link" href="{% url 'all_projects' %}">Portfolio</a></li>
                 <li class="nav-item"><a class="btn btn-acc px-4" href="{% url 'contact' %}">Request Quote </a></li>
 
             </ul>
