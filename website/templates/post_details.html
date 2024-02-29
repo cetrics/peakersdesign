@@ -84,9 +84,12 @@
             <hr>
 
             {% if not comments %}
-
-                <h5 class="text-center">Be the first to add a comment :)</h5>
-                <img src="{% static 'images/logo_nobg.png' %}" class="img-fluid px-5">
+                <div class="d-flex flex-column justify-content-center h-75">
+                    <div class="d-flex flex-row justify-content-center">
+                        <img src="{% static 'images/main_logo.png' %}" class="img-fluid px-5">
+                    </div>
+                    <h5 class="text-center font-weight-bold">Be the first to add a comment :)</h5>
+                </div>
 
             {% else %}
 

@@ -131,3 +131,7 @@ dmypy.json
 
 
 db.sqlite3
+
+.idea
+.media
+.env
