@@ -31,7 +31,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'peakerstech.com', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'peakersdesign.co.ke', 'localhost']
 
 
 # Application definition
@@ -150,6 +150,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/staff/dashboard'
+LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_HOST = 'smtp.mailtrap.io'
 EMAIL_HOST_USER = 'c4d21a4e2d25da'

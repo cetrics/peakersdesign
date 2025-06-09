@@ -1,203 +1,987 @@
-{% extends 'layouts/base.html' %}
-
-{% load static %}
-
-{% block 'css' %}
-
-<link rel="stylesheet" href="{% static 'owl/assets/owl.carousel.min.css' %}">
-<link rel="stylesheet" href="{% static 'owl/assets/owl.theme.default.min.css' %}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+{% extends 'layouts/base.html' %} {% load static %} {% block 'css' %}
+<link rel="stylesheet" href="{% static 'owl/assets/owl.carousel.min.css' %}" />
+<link
+  rel="stylesheet"
+  href="{% static 'owl/assets/owl.theme.default.min.css' %}"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
 <style>
-    a{
-        text-decoration: none;
+  :root {
+    --primary: #2a5298;
+    --secondary: #f09808;
+    --dark: #1e3c72;
+    --light: #f8f9fa;
+  }
 
+  a {
+    text-decoration: none;
+  }
+
+  /* Hero Section with Video Background */
+  .banner {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    color: white;
+    overflow: hidden;
+  }
+
+  #video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0.7;
+  }
+
+  .banner::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(30, 60, 114, 0.9) 0%,
+      rgba(42, 82, 152, 0.8) 100%
+    );
+    z-index: 1;
+  }
+
+  .banner-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .banner-heading {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .banner-subheading {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  /* Buttons */
+  .btn-acc {
+    background-color: var(--secondary);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-acc:hover {
+    background-color: #f09808;
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(255, 107, 107, 0.4);
+  }
+
+  .btn-outline-light {
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid white;
+  }
+
+  .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Services Section */
+  .services .card {
+    transition: all 0.4s ease;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    height: 100%;
+  }
+
+  .services .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+  }
+
+  .section-title:after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--secondary);
+    border-radius: 2px;
+  }
+
+  .service-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+    transition: all 0.3s ease;
+  }
+
+  .services .card:hover .service-icon {
+    transform: scale(1.1);
+    color: var(--secondary);
+  }
+
+  .feature-box {
+    background: white;
+    border-radius: 15px;
+    padding: 2.5rem 2rem;
+    height: 100%;
+    transition: all 0.4s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .feature-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    border-color: rgba(42, 82, 152, 0.2);
+  }
+
+  /* Stats Section */
+  .stats-section {
+    background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+    color: white;
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stats-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('{% static "images/dots-pattern.png" %}') center/cover;
+    opacity: 0.1;
+  }
+
+  .stat-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: var(--secondary);
+  }
+
+  /* Portfolio */
+  .portfolio-item {
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .portfolio-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .portfolio-overlay {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    background: rgba(42, 82, 152, 0.9);
+    color: white;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .portfolio-item:hover .portfolio-overlay {
+    bottom: 0;
+  }
+
+  /* Social Media Section */
+  .social-media-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    height: 100%;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .social-media-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .platform-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary);
+  }
+
+  .facebook {
+    color: #3b5998 !important;
+  }
+  .instagram {
+    color: #e4405f !important;
+  }
+  .twitter {
+    color: #1da1f2 !important;
+  }
+  .linkedin {
+    color: #0077b5 !important;
+  }
+  .youtube {
+    color: #ff0000 !important;
+  }
+
+  /* Testimonials */
+  .testimonial-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  /* CTA Section */
+  .contact-cta {
+    background: linear-gradient(135deg, var(--secondary) 0%, #285aeb 100%);
+    color: white;
+    padding: 5rem 0;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-cta::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('{% static "images/dots-pattern-white.png" %}') center/cover;
+    opacity: 0.1;
+  }
+  .client-icon {
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  .testimonial-card:hover .client-icon {
+    transform: scale(1.1);
+  }
+
+  /* Color Variations */
+  .bg-primary {
+    background: #2a5298 !important;
+  }
+  .bg-success {
+    background: #28a745 !important;
+  }
+  .bg-info {
+    background: #17a2b8 !important;
+  }
+  .bg-warning {
+    background: #ffc107 !important;
+  }
+  .bg-danger {
+    background: #dc3545 !important;
+  }
+
+  .cta-heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Social Media Links */
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .social-links a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+  }
+  /* Improved Social Media Section Styles */
+  .social-platform-card {
+    background: white;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+  }
+
+  .social-platform-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .platform-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  .social-platform-card:hover .platform-icon-wrapper {
+    background: rgba(0, 0, 0, 0.05);
+    transform: scale(1.1);
+  }
+
+  .platform-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  /* Platform-specific colors */
+  .facebook {
+    color: #3b5998;
+  }
+  .instagram {
+    background: radial-gradient(
+      circle at 30% 107%,
+      #fdf497 0%,
+      #fdf497 5%,
+      #fd5949 45%,
+      #d6249f 60%,
+      #285aeb 90%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .twitter {
+    color: #1da1f2;
+  }
+  .linkedin {
+    color: #0077b5;
+  }
+  .youtube {
+    color: #ff0000;
+  }
+  /* Mobile Responsive Adjustments */
+  @media (max-width: 767.98px) {
+    .banner {
+      min-height: auto;
+      padding-top: 120px; /* Increased from 80px to 120px */
+      padding-bottom: 40px; /* Added bottom padding */
     }
 
+    .banner-content {
+      padding-top: 3rem; /* Increased from 2rem */
+      padding-bottom: 3rem;
+      margin-top: 2rem; /* Additional spacing */
+    }
+
+    .banner-heading {
+      font-size: 2.2rem;
+      margin-top: 2rem; /* Added specific value (was missing before) */
+      margin-bottom: 1.5rem; /* Added space below heading */
+    }
+
+    .banner-subheading {
+      font-size: 1.1rem;
+      margin-bottom: 2.5rem; /* Increased space below subheading */
+    }
+
+    /* Adjust button container spacing */
+    .banner-content .d-flex {
+      gap: 1.5rem !important; /* Increased space between buttons */
+    }
+
+    /* Video background adjustment */
+    #video-bg {
+      height: 100%;
+    }
+  }
 </style>
-{% endblock %}
+{% endblock %} {% block 'content' %}
+<!-- Hero Banner with Video Background -->
+<!-- Hero Banner with Video Background -->
+<section class="banner">
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    id="video-bg"
+    poster="{% static 'images/hero-fallback.jpg' %}"
+  >
+    <source src="{% static 'videos/tech-background.mp4' %}" type="video/mp4" />
+    <!-- Fallback image if video doesn't load -->
+    <img
+      src="{% static 'images/hero-fallback.jpg' %}"
+      alt="Digital Background"
+      style="
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+      "
+    />
+  </video>
 
-{% block 'content' %}
+  <div class="banner-content animate__animated animate__fadeIn">
+    <h1 class="banner-heading">Transform Your Digital Presence</h1>
+    <p class="banner-subheading">
+      We craft beautiful, high-performing websites, apps, and social media
+      strategies that drive real business results.
+    </p>
+    <div
+      class="d-flex flex-column flex-md-row justify-content-center mt-4 gap-3"
+    >
+      <a href="{% url 'about' %}" class="btn btn-outline-light btn-lg">
+        Learn About Us
+      </a>
+      <a href="{% url 'contact' %}" class="btn btn-acc btn-lg">
+        Get Started Today
+      </a>
+    </div>
+  </div>
+</section>
 
+<!-- Services Section -->
+<section class="container py-5 my-5">
+  <h2 class="section-title text-center">Our Services</h2>
+  <p class="text-center mb-5 lead">
+    Comprehensive digital solutions tailored to your business needs
+  </p>
 
-<div class="container-fluid banner">
-    
-<div id="overlay"></div>
-    
-
-    <div class="row justify-content-center">
-      <div class="mt-5 col-lg-8 col-md-12 col-sm-12 text-light pt-5">
-          <div style="margin-top: 100px;"></div>
-        <h1 class="mt-5 banner-heading text-center font-weight-bold">We design websites, web systems and mobile applications for you.</h1>
-        <div class="d-flex flex-row justify-content-center">
-            <a class="btn btn-outline-light mr-3 btn-lg mt-3" href="{% url 'about' %}">Tell me more...</a>
-            <a class="btn btn-acc btn-lg mt-3" href="{% url 'contact' %}">Request a Quote</a>
+  <div class="row g-4 mt-4">
+    <!-- Web Development -->
+    <div class="col-md-4">
+      <div class="feature-box">
+        <div class="service-card text-center">
+          <i class="fas fa-laptop-code service-icon"></i>
+          <h4>Web Development</h4>
+          <p>
+            Custom websites built for performance, security, and seamless user
+            experiences across all devices.
+          </p>
+          <ul class="text-start mt-3 ps-3">
+            <li>Responsive Design</li>
+            <li>E-commerce Solutions</li>
+            <li>CMS Integration</li>
+          </ul>
         </div>
       </div>
     </div>
-</div>
 
-
-
-
-<div class="container-fluid servcies-sectio">
-
-    <div class="row justify-content-center mb-5 bg-acc-light">
-
-        <div class="col-lg-12">
-
-            <div class="card border-0 bg-trans">
-
-                <div class="card-body">
-
-                    <div class="container-fluid">
-
-                        <h4 class="text-dark font-weight-bold text-center">Our Services</h4>
-
-                        <div class="row justify-content-center mb-4">
-
-                        
-                            <div class="owl-carousel services owl-theme">
-                                {% for service in services %}
-
-                                    <!-- <div class="col-lg-12 col-md-12 col-sm-12 d-flex flex-column align-content-stretch"> -->
-                                            <div class="card mx-3 text-main bg-light mt-1 h-100 item" style="height: 170px!important;">
-                                                <div class="card-body text-center text-main">
-                                                    <p class=""><i class="fa fa-ravelry fa-lg"></i></p>
-                                                    <h5 class=" mx-5 mt-2">{{service.name}}</h5>
-                                                        <p>{{service.description | truncatewords:15}}</p>
-                                        
-                                                </div>
-                                            </div>
-                                    <!-- </div> -->
-
-            
-                                {% endfor %}
-                                      
-                            </div>
-
-                        </div>
-                    </div>
-
-                    
-                </div>
-                
-        
-            </div>
+    <!-- Mobile Apps -->
+    <div class="col-md-4">
+      <div class="feature-box">
+        <div class="service-card text-center">
+          <i class="fas fa-mobile-alt service-icon"></i>
+          <h4>Mobile Apps</h4>
+          <p>
+            Native and cross-platform mobile applications for iOS and Android
+            that engage your users.
+          </p>
+          <ul class="text-start mt-3 ps-3">
+            <li>iOS & Android Development</li>
+            <li>Hybrid Apps</li>
+            <li>App Store Optimization</li>
+          </ul>
         </div>
-
-
-
-    </div>
-</div>
-  
-
-<div class="container-fluid">
-    
-
-
-   
-    <div class="row mt-5 mb-3 px-4">
-        <h4 class="">Our Recent Works</h4>
-
-        <a href="{% url 'all_projects' %}" class="btn btn-main ml-auto btn-sm my-auto"><i class="fa fa-arrow-circle-right mr-2"></i>See All</a>
+      </div>
     </div>
 
-    <div class="row justify-content-center">
-
-        <div class="owl-carousel projects owl-theme">
-
-            {% include 'layouts/project-layout.html' %}
-                  
+    <!-- Social Media Management -->
+    <div class="col-md-4">
+      <div class="feature-box">
+        <div class="service-card text-center">
+          <i class="fas fa-hashtag service-icon"></i>
+          <h4>Social Media Management</h4>
+          <p>
+            Grow your brand with strategic social media campaigns and content
+            that converts.
+          </p>
+          <ul class="text-start mt-3 ps-3">
+            <li>Content Strategy</li>
+            <li>Community Management</li>
+            <li>Paid Advertising</li>
+          </ul>
         </div>
-
-        
-    </div>
-    
-    <div class="row mt-5 px-4">
-        <h4 class="">Recent Articles</h4>
-
-        <a href="{% url 'all_articles' %}" class="btn btn-main ml-auto btn-sm my-auto"><i class="fa fa-arrow-circle-right mr-2"></i>See All</a>
+      </div>
     </div>
 
-    <div class="row justify-content-center my-5">
-
-        
-        {% include 'layouts/simple-post.html' %}
-        
-
+    <!-- SEO Optimization -->
+    <div class="col-md-4">
+      <div class="feature-box">
+        <div class="service-card text-center">
+          <i class="fas fa-search-dollar service-icon"></i>
+          <h4>SEO Optimization</h4>
+          <p>
+            Improve your search rankings and attract more qualified traffic to
+            your site.
+          </p>
+          <ul class="text-start mt-3 ps-3">
+            <li>Keyword Research</li>
+            <li>On-Page Optimization</li>
+            <li>Technical SEO</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
+    <!-- Branding -->
+    <div class="col-md-4">
+      <div class="feature-box">
+        <div class="service-card text-center">
+          <i class="fas fa-palette service-icon"></i>
+          <h4>Branding & Design</h4>
+          <p>
+            Create a memorable brand identity that resonates with your target
+            audience.
+          </p>
+          <ul class="text-start mt-3 ps-3">
+            <li>Logo Design</li>
+            <li>Brand Guidelines</li>
+            <li>Marketing Collateral</li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
+    <!-- Digital Marketing -->
+    <div class="col-md-4">
+      <div class="feature-box">
+        <div class="service-card text-center">
+          <i class="fas fa-bullseye service-icon"></i>
+          <h4>Digital Marketing</h4>
+          <p>
+            Data-driven marketing strategies that deliver measurable results.
+          </p>
+          <ul class="text-start mt-3 ps-3">
+            <li>PPC Advertising</li>
+            <li>Email Marketing</li>
+            <li>Conversion Optimization</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-</div>
+<!-- Social Media Platforms Section -->
+<section class="container py-5 my-5">
+  <div class="text-center mb-5">
+    <h2 class="section-title">Social Media Expertise</h2>
+    <p class="lead text-muted">
+      We maximize your presence across all major platforms
+    </p>
+  </div>
 
+  <div class="row g-4 justify-content-center">
+    <!-- Facebook -->
+    <div class="col-lg-2 col-md-4 col-6">
+      <div class="social-platform-card text-center p-3">
+        <div class="platform-icon-wrapper mb-3">
+          <i class="fab fa-facebook-f fa-2x facebook"></i>
+        </div>
+        <h5 class="platform-name mb-0">Facebook</h5>
+        <p class="small text-muted mt-2 d-none d-md-block">Ads & Community</p>
+      </div>
+    </div>
 
+    <!-- Instagram -->
+    <div class="col-lg-2 col-md-4 col-6">
+      <div class="social-platform-card text-center p-3">
+        <div class="platform-icon-wrapper mb-3">
+          <i class="fab fa-instagram fa-2x instagram"></i>
+        </div>
+        <h5 class="platform-name mb-0">Instagram</h5>
+        <p class="small text-muted mt-2 d-none d-md-block">
+          Visual Storytelling
+        </p>
+      </div>
+    </div>
 
+    <!-- Twitter -->
+    <div class="col-lg-2 col-md-4 col-6">
+      <div class="social-platform-card text-center p-3">
+        <div class="platform-icon-wrapper mb-3">
+          <i class="fab fa-twitter fa-2x twitter"></i>
+        </div>
+        <h5 class="platform-name mb-0">Twitter</h5>
+        <p class="small text-muted mt-2 d-none d-md-block">
+          Real-time Engagement
+        </p>
+      </div>
+    </div>
 
-{% endblock %}
+    <!-- LinkedIn -->
+    <div class="col-lg-2 col-md-4 col-6">
+      <div class="social-platform-card text-center p-3">
+        <div class="platform-icon-wrapper mb-3">
+          <i class="fab fa-linkedin-in fa-2x linkedin"></i>
+        </div>
+        <h5 class="platform-name mb-0">LinkedIn</h5>
+        <p class="small text-muted mt-2 d-none d-md-block">B2B Networking</p>
+      </div>
+    </div>
 
-{% block 'scripts' %}
+    <!-- YouTube -->
+    <div class="col-lg-2 col-md-4 col-6">
+      <div class="social-platform-card text-center p-3">
+        <div class="platform-icon-wrapper mb-3">
+          <i class="fab fa-youtube fa-2x youtube"></i>
+        </div>
+        <h5 class="platform-name mb-0">YouTube</h5>
+        <p class="small text-muted mt-2 d-none d-md-block">Video Marketing</p>
+      </div>
+    </div>
 
+    <!-- TikTok -->
+    <div class="col-lg-2 col-md-4 col-6">
+      <div class="social-platform-card text-center p-3">
+        <div class="platform-icon-wrapper mb-3">
+          <i class="fab fa-tiktok fa-2x"></i>
+        </div>
+        <h5 class="platform-name mb-0">TikTok</h5>
+        <p class="small text-muted mt-2 d-none d-md-block">Viral Content</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+  <div class="container text-center">
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="stat-number">12+</div>
+        <p>Projects Completed</p>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-number">95%</div>
+        <p>Client Satisfaction</p>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-number">4+</div>
+        <p>Years of Experience</p>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-number">24/7</div>
+        <p>Support Available</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Portfolio Showcase -->
+<section class="container py-5 my-5">
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <h2 class="section-title">Our Recent Work</h2>
+    <a href="{% url 'all_projects' %}" class="btn btn-acc">
+      View All Projects <i class="fas fa-arrow-right ms-2"></i>
+    </a>
+  </div>
+
+  <div class="row g-4">
+    <!-- Project 1 -->
+    <div class="col-md-4">
+      <div class="portfolio-item">
+        <img
+          src="{% static 'images/tpc.png' %}"
+          class="img-fluid"
+          alt="E-commerce Project"
+        />
+        <div class="portfolio-overlay">
+          <h5>Trinity Pastors' College</h5>
+          <p class="mb-2">Pastor's College Platform</p>
+          <a href="https://tpc.or.ke/" class="btn btn-sm btn-light"
+            >View Case Study</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="col-md-4">
+      <div class="portfolio-item">
+        <img
+          src="{% static 'images/refhub.png' %}"
+          class="img-fluid"
+          alt="Mobile App Project"
+        />
+        <div class="portfolio-overlay">
+          <h5>Reformation Hub BookStore</h5>
+          <p class="mb-2">A BookStore Website</p>
+          <a href="https://reformationhub.or.ke/" class="btn btn-sm btn-light"
+            >View Case Study</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 3 - Social Media Campaign -->
+    <div class="col-md-4">
+      <div class="portfolio-item">
+        <img
+          src="{% static 'images/ariseandshine.png' %}"
+          class="img-fluid"
+          alt="Social Media Campaign"
+        />
+        <div class="portfolio-overlay">
+          <h5>Arise & Shine</h5>
+          <p class="mb-2">
+            An organization that supports children with cerebral palsy
+          </p>
+          <a href="https://ariseandshinecbo.co.ke/" class="btn btn-sm btn-light"
+            >View Case Study</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="container py-5 my-5">
+  <div class="text-center mb-5">
+    <h2 class="section-title">What Our Clients Say</h2>
+    <p class="lead text-muted">Don't just take our word for it</p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-4 animate__animated animate__fadeIn">
+      <div class="testimonial-card">
+        <div class="text-center mb-3">
+          <div
+            class="icon-container bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center"
+            style="width: 80px; height: 80px"
+          >
+            <i class="fas fa-quote-left fa-2x"></i>
+          </div>
+        </div>
+        <div class="rating mb-3 text-center">
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+        </div>
+        <p class="font-italic text-center mb-4">
+          "Reformed Baptist Church website looks amazing and we love it!"
+        </p>
+        <div class="d-flex align-items-center justify-content-center">
+          <i class="fas fa-user-tie text-primary mr-2"></i>
+          <div>
+            <h5 class="font-weight-bold mb-0">Paul Keno</h5>
+            <p class="text-muted small">Pastor, RBC,Kericho</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="col-md-4 mb-4 animate__animated animate__fadeIn animate__delay-1s"
+    >
+      <div class="testimonial-card">
+        <div class="text-center mb-3">
+          <div
+            class="icon-container bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center"
+            style="width: 80px; height: 80px"
+          >
+            <i class="fas fa-quote-left fa-2x"></i>
+          </div>
+        </div>
+        <div class="rating mb-3 text-center">
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+        </div>
+        <p class="font-italic text-center mb-4">
+          "Arise and Shine Website looks beautiful and we appreciate their work
+          and timely customer service"
+        </p>
+        <div class="d-flex align-items-center justify-content-center">
+          <i class="fas fa-laptop-code text-primary mr-2"></i>
+          <div>
+            <h5 class="font-weight-bold mb-0">Pamela Keno</h5>
+            <p class="text-muted small">Chairperson, Arise & Shine CBO</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="col-md-4 mb-4 animate__animated animate__fadeIn animate__delay-2s"
+    >
+      <div class="testimonial-card">
+        <div class="text-center mb-3">
+          <div
+            class="icon-container bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center"
+            style="width: 80px; height: 80px"
+          >
+            <i class="fas fa-quote-left fa-2x"></i>
+          </div>
+        </div>
+        <div class="rating mb-3 text-center">
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+        </div>
+        <p class="font-italic text-center mb-4">
+          "We love the website they build and we are thankful for the
+          corrections they made"
+        </p>
+        <div class="d-flex align-items-center justify-content-center">
+          <i class="fas fa-chart-line text-primary mr-2"></i>
+          <div>
+            <h5 class="font-weight-bold mb-0">Church Members</h5>
+            <p class="text-muted small">RBC, Kericho church members</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="container my-5">
+  <div class="contact-cta text-center position-relative">
+    <div class="position-relative z-index-1">
+      <h2 class="cta-heading">Ready to Elevate Your Digital Presence?</h2>
+      <p class="mb-4 fs-5">
+        Whether you need a new website, mobile app, or social media strategy,
+        we're here to help you succeed.
+      </p>
+      <a
+        href="{% url 'contact' %}"
+        class="btn btn-light btn-lg px-5 py-3 fw-bold"
+      >
+        Get Your Free Consultation
+      </a>
+
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/cetric-omwembe-b951a314a"
+          ><i class="fab fa-linkedin-in"></i
+        ></a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %} {% block 'scripts' %}
 <script src="{% static 'owl/owl.carousel.min.js' %}"></script>
-
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <script>
+  // Animation on scroll
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      $(".feature-box, .portfolio-item, .testimonial-card").each(function () {
+        var position = $(this).offset().top;
+        var scroll = $(window).scrollTop();
+        var windowHeight = $(window).height();
 
-$(document).ready(function(){
-  $(".services").owlCarousel({
-    animateOut: 'fadeOut',
-    autoplay:true,
-    autoplayTimeout:4000,
-    autoplayHoverPause:false,
-    dots:true,
-    responsive:{
-        0:{
-            items:1,
-            nav:false
+        if (scroll > position - windowHeight + 200) {
+          $(this).addClass("animate__animated animate__fadeInUp");
+        }
+      });
+    });
+
+    // Smooth scrolling for anchor links
+    $('a[href*="#"]').on("click", function (e) {
+      e.preventDefault();
+      $("html, body").animate(
+        {
+          scrollTop: $($(this).attr("href")).offset().top,
         },
-        600:{
-            items:2,
-            nav:false
-        },
-        1000:{
-            items:3,
-            nav:false,
-            loop:true
-        },
-    }
+        500,
+        "linear"
+      );
+    });
   });
-
-
-  $(".projects").owlCarousel({
-    animateOut: 'fadeOut',
-    autoplay:true,
-    autoplayTimeout:5000,
-    autoplayHoverPause:false,
-    dots:true,
-    responsive:{
-        0:{
-            items:1,
-            nav:false
-        },
-        600:{
-            items:2,
-            nav:false
-        },
-        1000:{
-            items:2,
-            nav:false,
-            loop:true
-        },
-    }
-  });
-
-
-});
-
-
-
-
 </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var video = document.getElementById("video-bg");
+    if (video) {
+      // Try to play the video (required for some mobile browsers)
+      var playPromise = video.play();
 
+      if (playPromise !== undefined) {
+        playPromise.catch(function (error) {
+          // If autoplay fails, show the fallback image
+          video.style.display = "none";
+          var fallback = video.querySelector("img");
+          if (fallback) fallback.style.display = "block";
+        });
+      }
+    }
+  });
+</script>
 {% endblock %}
-
-

@@ -1,11 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
-
 class Category(models.Model):
-    name = models.CharField(max_length = 50)
-    views = models.IntegerField(default=0,blank=True)
+    name = models.CharField(max_length=50)
+    views = models.IntegerField(default=0, blank=True)
     slug = models.SlugField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -14,11 +12,11 @@ class Category(models.Model):
         return self.name
 
 class Service(models.Model):
-    name = models.CharField(max_length = 50)
+    name = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
-    icon = models.ImageField(null=True, blank=True)
+    icon = models.FileField(upload_to='services/icons/', null=True, blank=True)  # Changed from ImageField
     slug = models.SlugField(max_length=200)
-    views = models.IntegerField(default=0,blank=True)
+    views = models.IntegerField(default=0, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -26,12 +24,12 @@ class Service(models.Model):
         return self.name
 
 class Project(models.Model):
-    title = models.CharField(max_length = 50)
+    title = models.CharField(max_length=50)
     description = models.TextField()
-    views = models.IntegerField(default=0,blank=True)
+    views = models.IntegerField(default=0, blank=True)
     slug = models.SlugField(max_length=200)
-    image_url = models.ImageField()
-    project_url = models.CharField(max_length= 255, blank=True, null = True)
+    image_url = models.FileField(upload_to='projects/images/')  # Changed from ImageField
+    project_url = models.CharField(max_length=255, blank=True, null=True)
     keywords = models.TextField()
     service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -48,13 +46,13 @@ class ProjectWorker(models.Model):
         return self.user.username
 
 class Article(models.Model):
-    title = models.CharField(max_length = 100)
+    title = models.CharField(max_length=100)
     post = models.TextField()
     likes = models.IntegerField(default=0, blank=True)
     dislikes = models.IntegerField(default=0, blank=True)
     slug = models.SlugField(max_length=200)
-    image_url = models.ImageField()
-    views = models.IntegerField(default=0,blank=True)
+    image_url = models.FileField(upload_to='articles/images/')  # Changed from ImageField
+    views = models.IntegerField(default=0, blank=True)
     keywords = models.TextField()
     STATUS_CHOICES = (
         ('P', 'Published'),
@@ -85,12 +83,12 @@ class Comment(models.Model):
 
 class Feedback(models.Model):
     message = models.TextField()
-    name = models.CharField(max_length = 50, blank=True, null=True)
+    name = models.CharField(max_length=50, blank=True, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
     phone_number = models.IntegerField(blank=True, null=True)
     TYPE_CHOICES = (
-        ('G','General'),
-        ('Q','Quote'),
+        ('G', 'General'),
+        ('Q', 'Quote'),
     )
     status = models.IntegerField(default=0)
     type = models.CharField(blank=True, null=True, choices=TYPE_CHOICES, max_length=1)
@@ -103,7 +101,7 @@ class Feedback(models.Model):
 class Seo(models.Model):
     title = models.CharField(max_length=100)
     keywords = models.TextField()
-    occasion = models.CharField(max_length = 50)
+    occasion = models.CharField(max_length=50)
     site_views = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

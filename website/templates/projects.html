@@ -1,94 +1,517 @@
-{% extends 'layouts/base.html' %}
+{% extends 'layouts/base.html' %} {% load static %} {% block 'css' %}
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+<style>
+  /* Root colors */
+  :root {
+    --primary: #2a5298;
+    --secondary: #f09808;
+    --dark: #1e3c72;
+    --light: #f8f9fa;
+  }
 
-{% block 'content' %}
+  body {
+    font-family: "Poppins", sans-serif !important;
+  }
 
-<div class="container-fluid">
+  /* Hero Section */
+  .banner {
+    position: relative;
+    min-height: 90vh;
+    font-family: "Poppins", sans-serif;
+  }
 
-    <div class="row justify-content-center pt-5 bg-main small-banner">
-      <div id="overlay-small"></div>
-        <div class="col-lg-8">
+  .banner-content {
+    max-width: 800px;
+  }
 
-          <h3 class="text-center text-light mt-3">Our Projects</h4>
-        </div>
+  .banner h1 {
+    font-weight: 800;
+    font-size: 3.5rem;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.5px;
+  }
+
+  .banner p {
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  /* Projects Section */
+  .projects-container {
+    padding: 5rem 0;
+    background-color: #f9fafc;
+  }
+
+  .project-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+    margin-bottom: 30px;
+  }
+
+  .project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .project-image-container {
+    height: 220px;
+    overflow: hidden;
+  }
+
+  .project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .project-card:hover .project-image {
+    transform: scale(1.05);
+  }
+
+  .project-content {
+    padding: 25px;
+  }
+
+  .project-category {
+    display: inline-block;
+    color: var(--secondary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .project-title {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .project-description {
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  /* Project Button */
+  .project-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: 2px solid var(--primary);
+  }
+
+  .project-btn:hover {
+    background: white;
+    color: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 5px 15px rgba(42, 82, 152, 0.2);
+  }
+
+  .project-btn i {
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+  }
+
+  .project-btn:hover i {
+    transform: translateX(5px);
+  }
+
+  /* Section Title */
+  .section-title {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-title h2 {
+    font-weight: 800;
+    color: var(--primary);
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+  }
+
+  .section-title h2:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--secondary);
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 767px) {
+    .banner h1 {
+      font-size: 2.5rem;
+    }
+
+    .banner p {
+      font-size: 1.1rem;
+    }
+
+    .project-image-container {
+      height: 180px;
+    }
+  }
+  /* Buttons */
+  .btn-acc {
+    background-color: var(--secondary);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-acc:hover {
+    background-color: #f09808;
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(255, 107, 107, 0.4);
+  }
+
+  .btn-outline-light {
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid white;
+  }
+
+  .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .btn-orange {
+    background-color: orange;
+    color: white;
+    border: none;
+  }
+
+  .btn-orange:hover {
+    background-color: darkorange;
+    font-weight: 500;
+  }
+</style>
+{% endblock %} {% block 'content' %}
+<!-- Hero Section -->
+<section
+  class="banner position-relative"
+  style="min-height: 90vh; font-family: 'Poppins', sans-serif"
+>
+  <!-- Background Image -->
+  <img
+    src="{% static 'images/hero-fallback.jpg' %}"
+    alt="Digital Background"
+    class="position-absolute w-100 h-100"
+    style="object-fit: cover; top: 0; left: 0; z-index: 0; opacity: 0.7"
+  />
+
+  <!-- Gradient Overlay -->
+  <div
+    class="position-absolute w-100 h-100"
+    style="
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background: linear-gradient(
+        135deg,
+        rgba(30, 60, 114, 0.9) 0%,
+        rgba(42, 82, 152, 0.8) 100%
+      );
+    "
+  ></div>
+
+  <!-- Content -->
+  <div
+    class="container d-flex align-items-center justify-content-center"
+    style="min-height: 90vh; position: relative; z-index: 2"
+  >
+    <div class="banner-content text-center" style="max-width: 800px">
+      <h1
+        class="animate__animated animate__fadeInDown"
+        style="
+          font-weight: 800;
+          font-size: 3.5rem;
+          color: #ffffff;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          line-height: 1.2;
+          margin-bottom: 1.5rem;
+          letter-spacing: -0.5px;
+        "
+      >
+        Our Portfolio
+      </h1>
+      <p
+        class="animate__animated animate__fadeIn animate__delay-1s"
+        style="
+          font-weight: 400;
+          font-size: 1.4rem;
+          color: rgba(255, 255, 255, 0.9);
+          line-height: 1.6;
+          margin-bottom: 2rem;
+        "
+      >
+        Explore our collection of successful projects and creative solutions
+      </p>
+      <div
+        class="d-flex flex-column flex-md-row justify-content-center gap-3 mt-4 animate__animated animate__fadeInUp animate__delay-1s"
+      >
+        <a href="#projects" class="btn btn-outline-light btn-lg">
+          View Projects <i class="fas fa-arrow-down ml-2"></i>
+        </a>
+        <a
+          href="{% url 'contact' %}"
+          class="btn btn-acc btn-lg"
+          style="font-weight: 500"
+        >
+          Get In Touch <i class="fas fa-paper-plane ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wave Divider -->
+  <div
+    class="position-absolute w-100"
+    style="bottom: 0; z-index: 1; pointer-events: none"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path
+        fill="#fff"
+        fill-opacity="1"
+        d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+      ></path>
+    </svg>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section class="projects-container" id="projects">
+  <div class="container">
+    <div class="section-title">
+      <h2 class="animate__animated animate__fadeIn">Featured Work</h2>
     </div>
 
-
-
-
-    <div class="row justify-content-center mb-5 mt-3">
-        
-
-      {% for project in projects %}
-
-      <div class="col-lg-6 my-2">
-          <div class="card border-0  rounded mx-3">
-              <div class="card-body px-0">
-
-                  <div class="container-fluid">
-
-                      <div class="row">
-
-                          <div class="col-lg-6 d-flex flex-column align-content-center">
-                              <img src="{{project.image_url.url}}" class="project-image mx-auto shadow-sm rounded img-fluid">
-  
-                          </div>
-  
-  
-                          <div class="col-lg-6 d-flex flex-column justify-content-center ">
-                              <small>{{project.service}}</small>
-                              <h5 class="font-weight-bold text-main">{{project.title}}</h5>
-                              <p>{{project.description}}</p>
-
-                              <div class="d-flex flex-row">
-                                  {% if project.project_url %}
-                                      <a href="{{project.project_url}}" class="btn btn-outline-main mr-1">Open Project</a>
-                                  {% endif %}
-                                  <a href="#" class="btn btn-acc ">See Details</a>
-
-                              </div>
-
-                              
-                          </div>
-                      </div>
-                      
-                  </div>
-
-                  
-              </div>
+    <div class="row">
+      <!-- Project 1 -->
+      <div class="col-lg-6 animate__animated animate__fadeInUp">
+        <div class="project-card">
+          <div class="project-image-container">
+            <img
+              src="{% static 'images/tpc.png' %}"
+              class="project-image"
+              alt="Creative Portfolio"
+            />
           </div>
+          <div class="project-content">
+            <span class="project-category">Web Design</span>
+            <h3 class="project-title">Trinity Pastors' College</h3>
+            <p class="project-description">
+              A clean, informative website built for Trinity Pastors' College to
+              provide resources, program details, and updates for aspiring
+              church leaders across Kenya.
+            </p>
+
+            <a
+              href="https://tpc.or.ke/"
+              class="project-btn btn-orange"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Project <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
       </div>
 
-      {% endfor %}
-        
+      <!-- Project 2 -->
+      <div
+        class="col-lg-6 animate__animated animate__fadeInUp animate__delay-1s"
+      >
+        <div class="project-card">
+          <div class="project-image-container">
+            <img
+              src="{% static 'images/refhub.png' %}"
+              class="project-image"
+              alt="Online Store"
+            />
+          </div>
+          <div class="project-content">
+            <span class="project-category">E-commerce</span>
+            <h3 class="project-title">Reformation Hub BookStore</h3>
+            <p class="project-description">
+              A modern e-commerce platform for Reformation Hub, offering a
+              curated selection of Christian books and resources with secure
+              payments and a smooth shopping experience.
+            </p>
 
-     
+            <a
+              href="https://reformationhub.or.ke/"
+              class="project-btn btn-orange"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Project <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
+      </div>
 
+      <!-- Project 3 -->
+      <div
+        class="col-lg-6 animate__animated animate__fadeInUp animate__delay-2s"
+      >
+        <div class="project-card">
+          <div class="project-image-container">
+            <img
+              src="{% static 'images/ariseandshine.png' %}"
+              class="project-image"
+              alt="Tech Blog"
+            />
+          </div>
+          <div class="project-content">
+            <span class="project-category">Web Design</span>
+            <h3 class="project-title">Arise & Shine</h3>
+            <p class="project-description">
+              A dynamic website for Arise & Shine CBO, built to highlight
+              community programs, youth empowerment initiatives, and social
+              impact projects in Kenya.
+            </p>
+
+            <a
+              href="https://ariseandshinecbo.co.ke/"
+              class="project-btn btn-orange"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Project <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div
+        class="col-lg-6 animate__animated animate__fadeInUp animate__delay-3s"
+      >
+        <div class="project-card">
+          <div class="project-image-container">
+            <img
+              src="{% static 'images/rbck.png' %}"
+              class="project-image"
+              alt="Fitness Tracker"
+            />
+          </div>
+          <div class="project-content">
+            <span class="project-category">Web Design</span>
+            <h3 class="project-title">Reformed Baptist Church</h3>
+            <p class="project-description">
+              A church website for Reformed Baptist Church, built to share
+              sermons, doctrinal beliefs, and connect with the congregation and
+              broader community.
+            </p>
+
+            <a
+              href="https://reformedbaptistchurch.or.ke/"
+              class="project-btn btn-orange"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Project <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Recent Articles Section -->
+<section class="py-5" style="background-color: #f8f9fa">
+  <div class="container">
+    <div class="row mb-5 px-4 align-items-center">
+      <h4 class="mb-0 text-dark">Recent Articles</h4>
+      <a
+        href="{% url 'all_articles' %}"
+        class="btn btn-orange ml-auto btn-sm my-auto"
+        style="color: white"
+      >
+        <i class="fa fa-arrow-circle-right mr-2"></i>See All
+      </a>
     </div>
 
-
-    <div class="row mt-5 mb-3 px-4">
-        <h4 class="">Recent Articles</h4>
-
-        <a href="{% url 'all_articles' %}" class="btn btn-main ml-auto btn-sm my-auto"><i class="fa fa-arrow-circle-right mr-2"></i>See All</a>
+    <div class="row justify-content-center">
+      {% include 'layouts/simple-post.html' %}
     </div>
+  </div>
+</section>
 
-    <div class="row justify-content-center mb-5">
+{% endblock %} {% block 'scripts' %}
+<script>
+  $(document).ready(function () {
+    // Smooth scrolling for anchor links
+    $('a[href^="#"]').on("click", function (event) {
+      event.preventDefault();
+      $("html, body").animate(
+        {
+          scrollTop: $($.attr(this, "href")).offset().top - 100,
+        },
+        500
+      );
+    });
 
-        {% include 'layouts/simple-post.html' %}
+    // Animation on scroll
+    const animateElements = document.querySelectorAll(".animate__animated");
 
-    </div>
+    const animateOnScroll = function () {
+      animateElements.forEach((element) => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
 
-   
+        if (elementPosition < windowHeight - 100) {
+          element.style.opacity = 1;
+          const animation = element.getAttribute("data-animate");
+          if (animation) {
+            element.classList.add(animation);
+          }
+        }
+      });
+    };
 
-    
-</div>
-
-
-{% endblock %}
-
-{% block 'scripts' %}
-
-
-
-
+    // Initialize animations
+    window.addEventListener("load", animateOnScroll);
+    window.addEventListener("scroll", animateOnScroll);
+  });
+</script>
 {% endblock %}

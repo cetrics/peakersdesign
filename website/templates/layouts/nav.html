@@ -1,26 +1,38 @@
 {% load static %}
-    <!--Navigation Bar-->
+<!--Navigation Bar-->
 
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
-        <a href="/" class="navbar-brand">
-            <img src="{% static 'images/main_logo.png' %}" class="img-fluid" height="150px" width="170px">
-        </a>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+  <a href="/" class="navbar-brand">
+    <img
+      src="{% static 'images/main_logo.png' %}"
+      class="img-fluid"
+      height="150px"
+      width="170px"
+    />
+  </a>
 
-        <button type="button" data-target="#myNavigation"
-         class="navbar-toggler navbar-light"
-         data-toggle="collapse">
+  <button
+    type="button"
+    data-target="#myNavigation"
+    class="navbar-toggler navbar-light"
+    data-toggle="collapse"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-            <span class="navbar-toggler-icon"></span>
-        
-        </button>
+  <div class="collapse navbar-collapse small-nav" id="myNavigation">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'about' %}">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+      </li>
 
-        <div class="collapse navbar-collapse small-nav" id="myNavigation">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
-
-                <!-- {% if user.is_authenticated %}
+      <!-- {% if user.is_authenticated %}
 
                     <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a></li>
 
@@ -30,10 +42,36 @@
 
                 {% endif %} -->
 
-                <li class="nav-item"><a class="nav-link" href="{% url 'all_articles' %}">Articles</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'all_projects' %}">Portfolio</a></li>
-                <li class="nav-item"><a class="btn btn-acc px-4" href="{% url 'contact' %}">Request Quote </a></li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'all_articles' %}">Articles</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'all_projects' %}">Portfolio</a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-acc px-4" href="{% url 'contact' %}"
+          >Request Quote
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const navbar = document.querySelector(".navbar");
 
-            </ul>
-        </div>
-    </nav>
+    function updateNavbarBackground() {
+      if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    }
+
+    // Run it on page load
+    updateNavbarBackground();
+
+    // Run it whenever the user scrolls
+    window.addEventListener("scroll", updateNavbarBackground);
+  });
+</script>

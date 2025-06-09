@@ -1,136 +1,354 @@
-{% extends 'layouts/base.html' %}
+{% extends 'layouts/base.html' %} {% load static %} {% block 'css' %}
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+<style>
+  /* Main Styles */
+  :root {
+    --primary: #2a5298;
+    --secondary: #f09808;
+    --dark: #1e3c72;
+    --light: #f8f9fa;
+  }
 
-{% block 'content' %}
+  body {
+    font-family: "Poppins", sans-serif;
+  }
 
-<div class="container-fluid">
+  .bg-main {
+    background: var(--primary);
+  }
 
-    <div class="row justify-content-center pt-5 bg-main small-banner">
-      <div id="overlay-small"></div>
-        <div class="col-lg-8">
+  .btn-main {
+    background: var(--secondary);
+    color: white;
+    border: none;
+  }
 
-          <h3 class="text-center text-light mt-3">{{title}}</h4>
+  /* Hero Section */
+  .article-hero {
+    position: relative;
+    min-height: 90vh;
+    font-family: "Poppins", sans-serif;
+  }
 
+  /* Search Section */
+  .search-section {
+    padding: 80px 0;
+    background: white;
+  }
 
-             <!-- Custom rounded search bars with input group -->
-        <form action="{% url 'search.post' %}">
-            <div class="p-2 bg-light rounded rounded-pill shadow mb-4">
-              <div class="input-group ">
-                <input autoComplete="off" name="search" list="autocompleteList" id="search" type="text" placeholder="What're you searching for?" aria-describedby="button-addon1" class="form-control border-0">
-                <div class="input-group-append">
-                  <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
-                </div>
-              </div>
-            </div>
-            <div id="options"
-              style="position: absolute; background-color: white; z-index: 99;" >
-            </div>
+  .search-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
 
-          </form>
-          <!-- End -->
-        </div>
+  .search-box {
+    background: white;
+    border-radius: 50px;
+    padding: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .search-input {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 10px 15px;
+    font-size: 1.1rem;
+  }
+
+  .search-button {
+    background: var(--secondary);
+    border: none;
+    color: white;
+    border-radius: 50px;
+    padding: 10px 25px;
+    transition: all 0.3s ease;
+  }
+
+  .search-button:hover {
+    background: #e08a07;
+  }
+
+  .section-title {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 30px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .section-title:after {
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 3px;
+    background: var(--secondary);
+    bottom: -10px;
+    left: 0;
+  }
+
+  /* Search Results */
+  #options {
+    background: white;
+    border-radius: 8px;
+    margin-top: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  #options a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  #options a:hover {
+    background: #f8f9fa;
+    color: var(--primary);
+  }
+
+  /* Articles Section */
+  .articles-section {
+    padding: 60px 0;
+    background: #f9fafb;
+  }
+  .btn-acc {
+    background-color: var(--secondary);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  .btn-outline-light {
+    border: 2px solid white;
+    padding: 12px 30px;
+    border-radius: 50px;
+  }
+
+  .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  #article-card {
+    scroll-margin-top: 100px; /* Adjust this value based on your header height */
+  }
+  #search-section {
+    scroll-margin-top: 100px; /* Adjust this value based on your header height */
+  }
+</style>
+{% endblock %} {% block 'content' %}
+<!-- Hero Section -->
+<section
+  class="banner position-relative"
+  style="min-height: 90vh; font-family: 'Poppins', sans-serif"
+>
+  <!-- Background Image -->
+  <img
+    src="{% static 'images/hero-fallback.jpg' %}"
+    alt="Digital Background"
+    class="position-absolute w-100 h-100"
+    style="object-fit: cover; top: 0; left: 0; z-index: 0; opacity: 0.7"
+  />
+
+  <!-- Gradient Overlay -->
+  <div
+    class="position-absolute w-100 h-100"
+    style="
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background: linear-gradient(
+        135deg,
+        rgba(30, 60, 114, 0.9) 0%,
+        rgba(42, 82, 152, 0.8) 100%
+      );
+    "
+  ></div>
+
+  <!-- Content -->
+  <div
+    class="container d-flex align-items-center justify-content-center"
+    style="min-height: 90vh; position: relative; z-index: 2"
+  >
+    <div class="banner-content text-center" style="max-width: 800px">
+      <h1
+        class="animate__animated animate__fadeInDown"
+        style="
+          font-weight: 800;
+          font-size: 3.5rem;
+          color: #ffffff;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          line-height: 1.2;
+          margin-bottom: 1.5rem;
+          letter-spacing: -0.5px;
+        "
+      >
+        From Idea to Impact
+      </h1>
+      <p
+        class="animate__animated animate__fadeIn animate__delay-1s"
+        style="
+          font-weight: 400;
+          font-size: 1.4rem;
+          color: rgba(255, 255, 255, 0.9);
+          line-height: 1.6;
+          margin-bottom: 2rem;
+        "
+      >
+        Discover insightful articles and resources on various topics
+      </p>
+      <div
+        class="d-flex flex-column flex-md-row justify-content-center gap-3 mt-4 animate__animated animate__fadeInUp animate__delay-1s"
+      >
+        <a href="#search-section" class="btn btn-outline-light btn-lg">
+          Search Articles <i class="fas fa-arrow-down ml-2"></i>
+        </a>
+        <a
+          href="#article-card"
+          class="btn btn-acc btn-lg"
+          style="font-weight: 500"
+        >
+          Articles <i class="fas fa-paper-plane ml-2"></i>
+        </a>
+      </div>
     </div>
+  </div>
 
+  <!-- Wave Divider -->
+  <div
+    class="position-absolute w-100"
+    style="bottom: 0; z-index: 1; pointer-events: none"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path
+        fill="#fff"
+        fill-opacity="1"
+        d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+      ></path>
+    </svg>
+  </div>
+</section>
 
+<!-- Search Section -->
+<section id="search-section" class="search-section">
+  <div class="container">
+    <h2 class="text-center section-title animate__animated animate__fadeIn">
+      Find Articles
+    </h2>
+    <div
+      class="search-container animate__animated animate__fadeIn animate__delay-1s"
+    >
+      <form action="{% url 'search.post' %}">
+        <div class="input-group search-box">
+          <input
+            autocomplete="off"
+            name="search"
+            list="autocompleteList"
+            id="search"
+            type="text"
+            placeholder="What're you searching for?"
+            aria-describedby="button-addon1"
+            class="form-control search-input"
+          />
+          <div class="input-group-append">
+            <button id="button-addon1" type="submit" class="search-button">
+              <i class="fa fa-search mr-2"></i> Search
+            </button>
+          </div>
+        </div>
+        <div id="options"></div>
+      </form>
+    </div>
+  </div>
+</section>
 
+<!-- Articles Section -->
+<div class="articles-section" id="article-card">
+  <div class="container py-5">
     {% if articles %}
     <div class="row justify-content-center mb-5 mt-3">
-        
       {% include 'layouts/simple-post.html' %}
-
-  </div>
-  {% else %}
-
-  <div class="row justify-content-center my-5">
-    <div class="col-lg-4  text-center">
-      <h4 class="text-center">
-        No posts matching your query.
-      </h4>
-
-      <a href="{% url 'all_articles' %}" class="btn btn-main">All Articles</a>
     </div>
+    {% else %}
+    <div class="row justify-content-center my-5">
+      <div class="col-lg-4 text-center">
+        <h4 class="text-center">No posts matching your query.</h4>
+        <a href="{% url 'all_articles' %}" class="btn btn-main">All Articles</a>
+      </div>
+    </div>
+    {% endif %}
   </div>
-
-  
-
-  {% endif %}
-
-    
-
-   
-
-    
 </div>
-
-
-{% endblock %}
-
-{% block 'scripts' %}
-
+{% endblock %} {% block 'scripts' %}
 <script>
-
-  $(document).ready(function(){
-
+  $(document).ready(function () {
+    // Set up CSRF token
     $.ajaxSetup({
-            headers: {
-                'X-CSRFToken': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+      headers: {
+        "X-CSRFToken": $('meta[name="csrf-token"]').attr("content"),
+      },
+    });
 
-    $("#search").blur(function(){
+    // Search functionality
+    $("#search").on("input", function () {
+      const searchText = $(this).val().trim();
 
-      setTimeout(function(){
-
-        $("#options").html("");
-
-      }, 1000)
-
-    })
-
-
-    $("#search").keyup(function(){
-
-      // console.log($(this).val());
-      let searchData = $(this).val()
-
+      if (searchText.length < 2) {
+        $("#options").empty();
+        return;
+      }
 
       $.ajax({
-      type: "POST",
-      url: "{% url 'search' %}",
-      dataType: "json",
-      data: {'searchInput' : searchData} ,
-      success:  function(data){
+        type: "POST",
+        url: "{% url 'search' %}",
+        data: { searchInput: searchText },
+        success: function (data) {
+          $("#options").empty();
 
-        $("#options").html("");
-
-        if(data['posts'].length != 0){
-
-          for (i=0; i<data['posts'].length; i++) {
-
-            let post = data['posts'][i]['title']
-            let url = "/articles/details/"+ data['posts'][i]['id']
-
-            $("#options").append('<a class="btn btn-outline-dark border-0" href="'+url+'">'
-              +post+'</a> <br><hr>')
-
+          if (data.posts && data.posts.length > 0) {
+            data.posts.forEach(function (post) {
+              $("#options").append(
+                `<a href="/articles/details/${post.id}" class="d-block p-2">${post.title}</a>`
+              );
+            });
           }
+        },
+        error: function (xhr) {
+          console.error("Search error:", xhr.responseText);
+        },
+      });
+    });
 
-        }
-          
-      },
-      error: function(data){
+    // Clear results when clicking outside
+    $(document).on("click", function (e) {
+      if (!$(e.target).closest("#search, #options").length) {
+        $("#options").empty();
       }
     });
 
-
-
-    })
-
-
-
+    // Smooth scrolling for anchor links
+    $('a[href^="#"]').on("click", function (event) {
+      event.preventDefault();
+      $("html, body").animate(
+        {
+          scrollTop: $($.attr(this, "href")).offset().top - 100,
+        },
+        500
+      );
+    });
   });
-
-
 </script>
-
-
 {% endblock %}

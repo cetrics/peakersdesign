@@ -9,75 +9,219 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
 <style>
-    blockquote {
-  padding-left: 10px;
-  margin-left: 20px;
-  font-style: italic;
-  font-weight: bold;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  border-left: 2px solid #F09808;
-  color: #081040;
-}
+  :root {
+    --primary: #2a5298;
+    --secondary: #f09808;
+    --dark: #1e3c72;
+    --light: #f8f9fa;
+  }
 
-.category-link{
-    text-decoration: none;
-    text-decoration-line: none;
-    color: #081040;
-}
-.category-link:hover{
-    color: #00BCE9;
-    
-    text-decoration-line: none;
+  body {
+    font-family: "Poppins", sans-serif !important;
+  }
 
-}
+  .bg-main {
+    background: var(--primary) !important;
+  }
+
+  .btn-main {
+    background: var(--secondary) !important;
+    color: white !important;
+    border: none !important;
+  }
+
+  .btn-acc {
+    background-color: var(--secondary) !important;
+    color: white !important;
+    border: none !important;
+    padding: 12px 30px !important;
+    border-radius: 50px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .btn-outline-light {
+    border: 2px solid white !important;
+    padding: 12px 30px !important;
+    border-radius: 50px !important;
+  }
+
+  .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .article-hero {
+    position: relative !important;
+    min-height: 90vh !important;
+    font-family: "Poppins", sans-serif !important;
+  }
+
+  .search-section {
+    padding: 80px 0 !important;
+    background: white !important;
+  }
+
+  .search-container {
+    max-width: 800px !important;
+    margin: 0 auto !important;
+  }
+
+  .search-box {
+    background: white !important;
+    border-radius: 50px !important;
+    padding: 8px !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .search-input {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 10px 15px !important;
+    font-size: 1.1rem !important;
+  }
+
+  .search-button {
+    background: var(--secondary) !important;
+    border: none !important;
+    color: white !important;
+    border-radius: 50px !important;
+    padding: 10px 25px !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .search-button:hover {
+    background: #e08a07 !important;
+  }
+
+  .section-title {
+    font-weight: 700 !important;
+    color: var(--primary) !important;
+    margin-bottom: 30px !important;
+    position: relative !important;
+    display: inline-block !important;
+  }
+
+  .section-title:after {
+    content: "" !important;
+    position: absolute !important;
+    width: 50% !important;
+    height: 3px !important;
+    background: var(--secondary) !important;
+    bottom: -10px !important;
+    left: 0 !important;
+  }
+
+  .articles-section {
+    padding: 60px 0 !important;
+    background: #f9fafb !important;
+  }
+
+  #options {
+    background: white !important;
+    border-radius: 8px !important;
+    margin-top: 5px !important;
+    max-height: 300px !important;
+    overflow-y: auto !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  }
+
+  #options a {
+    display: block !important;
+    padding: 10px 15px !important;
+    color: #333 !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+  }
+
+  #options a:hover {
+    background: #f8f9fa !important;
+    color: var(--primary) !important;
+  }
 </style>
+
 
 {% endblock %}
 
 {% block 'content' %}
 
-<div class="container-fluid mb-5">
+<!-- Hero Section (Matching Articles Page) -->
+<section
+  class="banner position-relative"
+  style="min-height: 90vh; font-family: 'Poppins', sans-serif"
+>
+  <!-- Background Image -->
+  <img
+    src="{{ post.image_url.url }}"
+    alt="{{ post.title }}"
+    class="position-absolute w-100 h-100"
+    style="object-fit: cover; top: 0; left: 0; z-index: 0; opacity: 0.7"
+  />
 
-    <div class="row justify-content-center pt-5 mb-5 bg-main small-banner">
-      <div id="overlay-small"></div>
-        <div class="col-lg-8">
+  <!-- Gradient Overlay -->
+  <div
+    class="position-absolute w-100 h-100"
+    style="
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background: linear-gradient(
+        135deg,
+        rgba(30, 60, 114, 0.9) 0%,
+        rgba(42, 82, 152, 0.8) 100%
+      );
+    "
+  ></div>
 
-          <h2 class="text-center text-light mt-3">{{post.title}}</h4>
-
-
-        </div>
+  <!-- Content -->
+  <div
+    class="container d-flex align-items-center justify-content-center"
+    style="min-height: 90vh; position: relative; z-index: 2"
+  >
+    <div class="banner-content text-center" style="max-width: 800px">
+      <h1
+        class="animate__animated animate__fadeInDown"
+        style="
+          font-weight: 800;
+          font-size: 3.5rem;
+          color: #ffffff;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          line-height: 1.2;
+          margin-bottom: 1.5rem;
+          letter-spacing: -0.5px;
+        "
+      >
+        {{ post.title }}
+      </h1>
+      <p
+        class="animate__animated animate__fadeIn animate__delay-1s"
+        style="
+          font-weight: 400;
+          font-size: 1.4rem;
+          color: rgba(255, 255, 255, 0.9);
+          line-height: 1.6;
+          margin-bottom: 2rem;
+        "
+      >
+        {{ post.category }}
+      </p>
     </div>
+  </div>
 
+  <!-- Wave Divider -->
+  <div class="position-absolute w-100" style="bottom: 0; z-index: 3">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path
+        fill="#fff"
+        fill-opacity="1"
+        d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+      ></path>
+    </svg>
+  </div>
+</section>
 
-<div class="container-fluid">
-
-    <div class="row">
-
-        <div class="col-lg-8 col-md-12 col-sm-12">
-
-            <img src="{{post.image_url.url}}" class="rounded" style="height:200px; width: 100%; object-fit: cover;">
-
-            <h3 class="mt-5">{{post.title}}</h3>
-            <p class="text-main"><i class="fa fa-tag mr-2"></i>{{post.category}}</p>
-
-            {% autoescape off %}
-                <p class="my-5">{{post.post}}</p>
-            {% endautoescape %}
-        </div>
-
-        <div class="col-lg-4 d-lg-block d-none">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="text-acc">More Categories</h5>
-                    
-                    {% for category in categories %}
-                    <hr>
-                        <a href="{% url 'category_posts' category.id %}" class="category-link">{{category}}</a>
-                        
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
 
         <div class="col-lg-6 col-md-6 col-sm-12 my-5">
             <h4>Comments</h4>
