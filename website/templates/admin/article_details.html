@@ -16,7 +16,12 @@
 
         <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
             <a href="{% url 'update_article' article.id %}" class="btn btn-main btn-sm"><i class="fa fa-edit mr-2"></i> Update</a>
-            <a href="#" class="btn btn-sec btn-sm"><i class="fa fa-trash mr-2"></i> Delete</a>
+            <form action="{% url 'delete_article' article.pk %}" method="POST" class="d-inline">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-sec btn-sm" onclick="return confirm('Are you sure?');">
+        <i class="fa fa-trash mr-2"></i> Delete
+    </button>
+</form>
 
         </div>
 

@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <style>
-
+        
         
     </style>
 
@@ -42,6 +42,18 @@
 <body>
 
     {% include 'layouts/nav.html' %}
+
+    <!-- Page Loader -->
+<div id="page-loader">
+  <div class="loader-overlay">
+    <div class="loader-content">
+      <div class="spinner-glow"></div>
+      <img src="{% static 'images/peakers_logo.png' %}" alt="Peakers Logo" class="loader-logo">
+    </div>
+  </div>
+</div>
+
+
 
 <section style="min-height: 100vh">
     {% block 'content' %}
@@ -70,6 +82,38 @@
         });
     
     </script>
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const loader = document.getElementById("page-loader");
+
+    document.querySelectorAll('a[href]:not([target="_blank"])').forEach(link => {
+      link.addEventListener("click", function (e) {
+        const href = link.getAttribute("href");
+        if (
+          href &&
+          !href.startsWith("#") &&
+          !href.startsWith("javascript:")
+        ) {
+          e.preventDefault();
+          loader.classList.remove("hidden");
+          loader.style.display = "flex";
+          setTimeout(() => {
+            window.location.href = href;
+          }, 400); // Delay for effect
+        }
+      });
+    });
+
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("page-loader");
+      setTimeout(() => {
+        loader.classList.add("hidden");
+      }, 500);
+    });
+  });
+</script>
+
+
     {% block 'scripts' %}
 
     <!-- remains empty -->

@@ -15,6 +15,7 @@ from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string, get_template
 from .forms import CommentForm
+from django.shortcuts import get_object_or_404, redirect
 
 
 
@@ -241,6 +242,17 @@ def deleteService(request, id):
     }
 
     return JsonResponse(context)
+
+@login_required
+def deleteArticle(request, pk):  # Changed parameter to match URL
+    article = get_object_or_404(Article, pk=pk)
+    
+    if request.method == 'POST':
+        article.delete()
+        return redirect('articles')  # Redirect to article list
+    
+    # If not POST, redirect back (or you could return 405 Method Not Allowed)
+    return redirect(request.META.get('HTTP_REFERER', 'articles'))
 
 @method_decorator(login_required, name="dispatch")
 class ArticleList(LoginRequiredMixin, ListView):

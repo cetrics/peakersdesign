@@ -35,6 +35,7 @@ staffpatterns = [
     path('articles/create', ArticleCreate.as_view(), name="add_article"),
     path('articles/view/<pk>', ArticleDetails.as_view(), name="view_article"),
     path('articles/update/<pk>', ArticleUpdate.as_view(), name="update_article"),
+    path('staff/delete-article/<int:pk>/', deleteArticle, name='delete_article'),
 
     ##services
     path('services', ServiceList.as_view(), name="services"),

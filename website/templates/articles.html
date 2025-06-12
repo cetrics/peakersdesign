@@ -148,6 +148,22 @@
   #search-section {
     scroll-margin-top: 100px; /* Adjust this value based on your header height */
   }
+  .button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* fallback for modern browsers */
+}
+
+@media (min-width: 768px) {
+  .button-group {
+    flex-direction: row;
+  }
+
+  .button-group a:first-child {
+    margin-right: 1rem; /* fallback spacing for older browsers */
+  }
+}
 </style>
 {% endblock %} {% block 'content' %}
 <!-- Hero Section -->
@@ -211,7 +227,7 @@
         Discover insightful articles and resources on various topics
       </p>
       <div
-        class="d-flex flex-column flex-md-row justify-content-center gap-3 mt-4 animate__animated animate__fadeInUp animate__delay-1s"
+        class="button-group d-flex flex-column flex-md-row justify-content-center gap-3 mt-4 animate__animated animate__fadeInUp animate__delay-1s"
       >
         <a href="#search-section" class="btn btn-outline-light btn-lg">
           Search Articles <i class="fas fa-arrow-down ml-2"></i>

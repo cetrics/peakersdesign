@@ -261,6 +261,25 @@
   #our-story {
     scroll-margin-top: 100px; /* Adjust this value based on your header height */
   }
+  .button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* horizontally center on row layout */
+  text-align: center;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .button-group {
+    flex-direction: row;
+  }
+
+  .button-group a:first-child {
+    margin-right: 1rem;
+  }
+}
+
 </style>
 {% endblock %} {% block 'content' %}
 <!-- Hero Banner -->
@@ -332,7 +351,7 @@
         Building digital solutions that drive real business results
       </p>
       <div
-        class="d-flex flex-column flex-md-row justify-content-center gap-3 mt-4 animate__animated animate__fadeInUp animate__delay-1s"
+        class="button-group"
       >
         <a href="#our-story" class="btn btn-outline-light btn-lg">
           Learn More <i class="fas fa-arrow-down ml-2"></i>
@@ -675,6 +694,38 @@
           <div>
             <h5 class="font-weight-bold mb-0">Church Members</h5>
             <p class="text-muted small">RBC, Kericho church members</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="col-md-4 mb-4 animate__animated animate__fadeIn animate__delay-2s"
+    >
+      <div class="testimonial-card">
+        <div class="text-center mb-3">
+          <div
+            class="icon-container bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center"
+            style="width: 80px; height: 80px"
+          >
+            <i class="fas fa-quote-left fa-2x"></i>
+          </div>
+        </div>
+        <div class="rating mb-3 text-center">
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+        </div>
+        <p class="font-italic text-center mb-4">
+          "I highly recommend Peakers Design for website design and maintenance. What took me long, painful days of finding my way online was professionally and accurately executed by Peakers Design within a short period of dedicated work. Thank you, Peakers."
+        </p>
+        <div class="d-flex align-items-center justify-content-center">
+          <i class="fas fa-chart-line text-primary mr-2"></i>
+          <div>
+            <h5 class="font-weight-bold mb-0">Caleb Muli</h5>
+            <p class="text-muted small">Managing Director, Hoofstad</p>
           </div>
         </div>
       </div>

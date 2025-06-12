@@ -222,6 +222,23 @@
     background-color: darkorange;
     font-weight: 500;
   }
+  .button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* fallback for modern browsers */
+}
+
+@media (min-width: 768px) {
+  .button-group {
+    flex-direction: row;
+  }
+
+  .button-group a:first-child {
+    margin-right: 1rem; /* fallback spacing for older browsers */
+  }
+}
+
 </style>
 {% endblock %} {% block 'content' %}
 <!-- Hero Section -->
@@ -285,9 +302,9 @@
         Explore our collection of successful projects and creative solutions
       </p>
       <div
-        class="d-flex flex-column flex-md-row justify-content-center gap-3 mt-4 animate__animated animate__fadeInUp animate__delay-1s"
+        class="button-group d-flex flex-column flex-md-row justify-content-center gap-3 mt-4 animate__animated animate__fadeInUp animate__delay-1s"
       >
-        <a href="#projects" class="btn btn-outline-light btn-lg">
+        <a href="#projects" class="btn btn-outline-light btn-lg" style="font-weight: 400;">
           View Projects <i class="fas fa-arrow-down ml-2"></i>
         </a>
         <a
@@ -348,6 +365,7 @@
               class="project-btn btn-orange"
               target="_blank"
               rel="noopener noreferrer"
+              style="font-weight: 400;"
             >
               View Project <i class="fas fa-external-link-alt"></i>
             </a>
@@ -381,6 +399,7 @@
               class="project-btn btn-orange"
               target="_blank"
               rel="noopener noreferrer"
+              style="font-weight: 400;"
             >
               View Project <i class="fas fa-external-link-alt"></i>
             </a>
@@ -414,14 +433,47 @@
               class="project-btn btn-orange"
               target="_blank"
               rel="noopener noreferrer"
+              style="font-weight: 400;"
             >
               View Project <i class="fas fa-external-link-alt"></i>
             </a>
           </div>
         </div>
       </div>
-
       <!-- Project 4 -->
+      <div
+        class="col-lg-6 animate__animated animate__fadeInUp animate__delay-2s"
+      >
+        <div class="project-card">
+          <div class="project-image-container">
+            <img
+              src="{% static 'images/hoofstad.png' %}"
+              class="project-image"
+              alt="Tech Blog"
+            />
+          </div>
+          <div class="project-content">
+            <span class="project-category">Web Design</span>
+            <h3 class="project-title">Hoofstad</h3>
+            <p class="project-description">
+              Hoofstad is a Kenya‑based consulting and training firm delivering expert-led business solutions, including tailored consulting, corporate training, and data-driven growth strategies.
+            </p>
+
+            <a
+  href="https://hoofstad.co.ke/"
+  class="project-btn btn-orange"
+  target="_blank"
+  rel="noopener noreferrer"
+  style="font-weight: 400;"
+>
+  View Project <i class="fas fa-external-link-alt"></i>
+</a>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 5 -->
       <div
         class="col-lg-6 animate__animated animate__fadeInUp animate__delay-3s"
       >
@@ -447,6 +499,7 @@
               class="project-btn btn-orange"
               target="_blank"
               rel="noopener noreferrer"
+              style="font-weight: 400;"
             >
               View Project <i class="fas fa-external-link-alt"></i>
             </a>
